@@ -1,6 +1,7 @@
 import os
 
-from src.FileHandler import FileHandler
+from src.Cipher import *
+from src.FileHandler import *
 
 def chose_rot_type() -> str:
     encrypt_options = ['ROT13', 'ROT47']
@@ -47,36 +48,14 @@ def save_to_file_question(memory_buffer: list[str], rot_tyoe: str, status: str):
         print("Podano nieprawidłowy znak")
         save_to_file_question(memory_buffer)
 
-def rot13(txt: str) -> str:
-    result = ""
-    for letter in txt:
-        if 65 <= ord(letter) <= 77 or 97 <= ord(letter) <= 109:
-            result += chr(ord(letter) + 13)
-        elif 78 <= ord(letter) <= 90 or 110 <= ord(letter) <= 122:
-            result += chr(ord(letter) - 13)
-        else:
-            result += letter
-    return result
-
-
-def rot47(txt: str) -> str:
-    result = ""
-    for letter in txt:
-        if 33 <= ord(letter) <= 81:
-            result += chr(ord(letter) + 47)
-        elif 82 <= ord(letter) <= 126:
-            result += chr(ord(letter) - 47)
-        else:
-            result += letter
-    return result
 
 def encrypt(memory_buffer: list[str], encrypt_option: str) -> list[str]:
     encrypt_result = []
     for text in memory_buffer:
         if encrypt_option == 'ROT13':
-            encrypt_result.append(rot13(text))
+            encrypt_result.append(Cipher.rot13(text))
         elif encrypt_option == "ROT47":
-            encrypt_result.append(rot47(text))
+            encrypt_result.append(Cipher.rot47(text))
     return encrypt_result
 
 def str_to_decode(memory_buffer: list[str]) -> list[str]:
