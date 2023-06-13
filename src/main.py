@@ -2,6 +2,8 @@ import os
 
 from src.Cipher import *
 from src.FileHandler import *
+from src.MemoryBuffer import *
+#from src.Text import Text
 
 def chose_rot_type() -> str:
     encrypt_options = ['ROT13', 'ROT47']
@@ -29,16 +31,16 @@ def get_file_name() -> tuple[str, (str, None)]:
             get_file_name()
     return file_name, did_add_to_file
 
-def save_to_file_question(memory_buffer: list[str], rot_tyoe: str, status: str):
+def save_to_file_question(memory_buffer: MemoryBuffer, rot_tyoe: str, status: str):
     answer = input("Czy zapisać do pliku? [t/n]: ").lower()
     if isinstance(answer, str):
         if answer == 't':
             file_name, did_override = get_file_name()
             if did_override == 't':
                 memory_buffer.insert(0, FileHandler.append(file_name))
-            for text in memory_buffer:
-                file = FileHandler(text, rot_tyoe, status)
-                file.save(file_name, did_override)
+            for text in memory_buffer.memory_buffer:
+                file = Text(text, rot_tyoe, status)
+                FileHandler.save(file_name, did_override)
         elif answer == 'n':
             pass
         else:
@@ -58,17 +60,23 @@ def encrypt(memory_buffer: list[str], encrypt_option: str) -> list[str]:
             encrypt_result.append(Cipher.rot47(text))
     return encrypt_result
 
-def str_to_decode(memory_buffer: list[str]) -> list[str]:
+def str_to_decode(memory_buffer: MemoryBuffer) -> MemoryBuffer:
     print("\nPusty napis kończy dodawanie napisów do szyfrowania")
     while True:
         txt = input("Podaj tekst do zaszyfrowania: ")
         if txt == '':
             break
-        memory_buffer.append(txt)
+        memory_buffer.add_to_memory_buffer(txt)
     return memory_buffer
 
+def get_str_and_encrypt(memory_buffer: MemoryBuffer) -> None:
+    text = input("Podaj napis do zaszyfrowania: ")
+    rot_type = chose_rot_type()
+    text_obj = Text(text, rot_type, "encrypted")
+    memory_buffer.add_to_memory_buffer(text_obj)
+
 def main():
-    memory_buffer = []
+    memory_buffer = MemoryBuffer
     print("Szyfr Cezara (ROT13/ROT47)")
 
     while True:
@@ -76,12 +84,9 @@ def main():
         option = input("Wybierz opcję: ")
         match option:
             case "1":
-                str_to_decode(memory_buffer)
-                rot_type = chose_rot_type()
-                memory_buffer = encrypt(memory_buffer, rot_type)
-                save_to_file_question(memory_buffer, rot_type, "encrypted")
+                get_str_and_encrypt(memory_buffer)
             case "2":
-                str_to_decode(memory_buffer)
+                pass
             case "3":
                 print("Zamykam program")
                 break
