@@ -9,7 +9,7 @@ class MemoryBuffer:
     memory_buffer = []
 
     @classmethod
-    def memory_buffer_length(cls):
+    def get_length(cls):
         return len(cls.memory_buffer)
     @classmethod
     def add_to_memory_buffer(cls, text_object) -> None:
