@@ -98,7 +98,7 @@ def main():
                     print("Zamykam program")
                     break
                 else:
-                    print("Zapisuję")
+                    FileHandler.prepare_save(memory_buffer)
             case "4":
                 if memory_buffer.get_length() == 0:
                     print("Podano nieprawidłową opcję")
