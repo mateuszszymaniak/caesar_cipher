@@ -75,12 +75,18 @@ def get_str_and_encrypt(memory_buffer: MemoryBuffer) -> None:
     text_obj = Text(text, rot_type, "encrypted")
     memory_buffer.add_to_memory_buffer(text_obj)
 
+def display_menu(memory_buffer_len: int) -> None:
+    if memory_buffer_len == 0:
+        print("\n1. Dodaj napis do szyfrowania\n2. Dodaj napis do odszyfrowania\n3. Zamknij program")
+    else:
+        print("\n1. Dodaj napis do szyfrowania\n2. Dodaj napis do odszyfrowania\n3. Zapisz wprowadzone napisy\n4. Zamknij program")
+
 def main():
     memory_buffer = MemoryBuffer
     print("Szyfr Cezara (ROT13/ROT47)")
 
     while True:
-        print("\n1. Zaszyfruj tekst\n2. Odszyfruj tekst\n3. Wyjście z programu")
+        display_menu(memory_buffer.memory_buffer_length())
         option = input("Wybierz opcję: ")
         match option:
             case "1":
@@ -88,8 +94,17 @@ def main():
             case "2":
                 pass
             case "3":
-                print("Zamykam program")
-                break
+                if memory_buffer.memory_buffer_length() == 0:
+                    print("Zamykam program")
+                    break
+                else:
+                    print("Zapisuję")
+            case "4":
+                if memory_buffer.memory_buffer_length() == 0:
+                    print("Podano nieprawidłową opcję")
+                else:
+                    print("Zamykam program")
+                    break
             case _:
                 print("Podano nieprawidłową opcję")
 
