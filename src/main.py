@@ -69,10 +69,10 @@ def str_to_decode(memory_buffer: MemoryBuffer) -> MemoryBuffer:
         memory_buffer.add_to_memory_buffer(txt)
     return memory_buffer
 
-def get_str_and_encrypt(memory_buffer: MemoryBuffer) -> None:
+def set_str_to_memory_buffer(memory_buffer: MemoryBuffer, *args: str) -> None:
     text = input("Podaj napis do zaszyfrowania: ")
     rot_type = chose_rot_type()
-    text_obj = Text(text, rot_type, "encrypted")
+    text_obj = Text(text, rot_type, args[0])
     memory_buffer.add_to_memory_buffer(text_obj)
 
 def display_menu(memory_buffer_len: int) -> None:
@@ -90,9 +90,9 @@ def main():
         option = input("Wybierz opcję: ")
         match option:
             case "1":
-                get_str_and_encrypt(memory_buffer)
+                set_str_to_memory_buffer(memory_buffer, "encrypted")
             case "2":
-                pass
+                set_str_to_memory_buffer(memory_buffer, "decrypted")
             case "3":
                 if memory_buffer.memory_buffer_length() == 0:
                     print("Zamykam program")
