@@ -3,7 +3,7 @@ import os
 from src.Cipher import *
 from src.FileHandler import *
 from src.MemoryBuffer import MemoryBuffer
-#from src.Text import Text
+from src.Text import Text
 
 def chose_rot_type() -> str:
     encrypt_options = ['ROT13', 'ROT47']
@@ -79,10 +79,10 @@ def display_menu(memory_buffer_len: int) -> None:
     if memory_buffer_len == 0:
         print("\n1. Dodaj napis do szyfrowania\n2. Dodaj napis do odszyfrowania\n3. Zamknij program")
     else:
-        print("\n1. Dodaj napis do szyfrowania\n2. Dodaj napis do odszyfrowania\n3. Zapisz wprowadzone napisy\n4. Zamknij program")
+        print("\n1. Dodaj napis do szyfrowania\n2. Dodaj napis do odszyfrowania\n3. Zapisz wprowadzone napisy\n4. Wyświetl zawartość buffera\n5. Zamknij program")
 
 def main():
-    memory_buffer = MemoryBuffer.memory_buffer
+    memory_buffer = MemoryBuffer
     print("Szyfr Cezara (ROT13/ROT47)")
 
     while True:
@@ -100,6 +100,11 @@ def main():
                 else:
                     FileHandler.prepare_save(memory_buffer)
             case "4":
+                if memory_buffer.get_length() == 0:
+                    print("Podano nieprawidłową opcję")
+                else:
+                    memory_buffer.show_memory_buffer()
+            case "5":
                 if memory_buffer.get_length() == 0:
                     print("Podano nieprawidłową opcję")
                 else:

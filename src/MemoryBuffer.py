@@ -18,3 +18,8 @@ class MemoryBuffer:
     @classmethod
     def memory_buffer_to_dict(cls):
         return [asdict(text) for text in cls.memory_buffer]
+
+    @classmethod
+    def show_memory_buffer(cls):
+        for item in cls.memory_buffer:
+            print(item)
