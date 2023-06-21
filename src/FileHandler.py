@@ -1,6 +1,7 @@
 import json
 import os
 from src.MemoryBuffer import MemoryBuffer
+from src.Text import Text
 
 class FileHandler:
     @staticmethod
@@ -10,8 +11,13 @@ class FileHandler:
 
     @staticmethod
     def open(file_name):
+        result = []
         with open(file_name, 'r') as reader:
-            json.load(reader)
+            data = json.load(reader)
+        for i in data:
+            text_obj = Text(i['txt'], i['rot_type'], i['status'])
+            result.append(text_obj)
+        return result
 
     @staticmethod
     def prepare_save(memory_buffer: MemoryBuffer):
@@ -20,6 +26,7 @@ class FileHandler:
         if file_exist: #TODO need add encrypt/decrypt text from memory_buffer
             FileHandler.override_file(file_name, memory_buffer)
         FileHandler.save(file_name)
+        MemoryBuffer.clear_memory_buffer()
 
     @staticmethod
     def check_file(file_name: str) -> bool:
@@ -27,5 +34,15 @@ class FileHandler:
 
     @staticmethod
     def override_file(file_name: str, memory_buffer: MemoryBuffer):
-        pass #TODO
+        choice = input("Podana nazwa pliku istnieje. Czy dopisać do pliky? [t/n]: ")
+        if choice == 't':
+            memory_buffer = FileHandler.append(file_name, memory_buffer)
+        return memory_buffer
 
+    @staticmethod
+    def append(file_name: str, memory_buffer):
+        data = FileHandler.open(file_name)
+        print(data)
+        for key, value in enumerate(data):
+            memory_buffer = MemoryBuffer.insert_to_memory_buffer(value, key)
+        return memory_buffer
