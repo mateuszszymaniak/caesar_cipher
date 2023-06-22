@@ -26,6 +26,9 @@ class FileHandler:
     @staticmethod
     def prepare_save(memory_buffer: MemoryBuffer):
         file_name = input("Podaj nazwę pliku: ") + '.json'
+        if file_name == ".json":
+            print("Podano pustą nazwę pliku!")
+            FileHandler.prepare_save(memory_buffer)
         file_exist: bool = FileHandler.check_file(file_name)
         if file_exist: #TODO need add encrypt/decrypt text from memory_buffer
             FileHandler.override_file(file_name, memory_buffer)
