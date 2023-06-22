@@ -50,25 +50,6 @@ def save_to_file_question(memory_buffer: MemoryBuffer, rot_tyoe: str, status: st
         print("Podano nieprawidłowy znak")
         save_to_file_question(memory_buffer)
 
-
-def encrypt(memory_buffer: list[str], encrypt_option: str) -> list[str]:
-    encrypt_result = []
-    for text in memory_buffer:
-        if encrypt_option == 'ROT13':
-            encrypt_result.append(Cipher.rot13(text))
-        elif encrypt_option == "ROT47":
-            encrypt_result.append(Cipher.rot47(text))
-    return encrypt_result
-
-def str_to_decode(memory_buffer: MemoryBuffer) -> MemoryBuffer:
-    print("\nPusty napis kończy dodawanie napisów do szyfrowania")
-    while True:
-        txt = input("Podaj tekst do zaszyfrowania: ")
-        if txt == '':
-            break
-        memory_buffer.add_to_memory_buffer(txt)
-    return memory_buffer
-
 def source_input():
     suboption = input("W jaki sposób chcesz podać dane:\n1.Wpisując ręcznie\n2.Wczytując tekst")
     return suboption
