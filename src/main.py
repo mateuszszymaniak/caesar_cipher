@@ -5,15 +5,14 @@ from src.FileHandler import *
 from src.MemoryBuffer import MemoryBuffer
 from src.Text import Text
 from src.Statuses import Statuses
+from src.Cipher_type import CipherType
 
 def chose_rot_type() -> str:
-    encrypt_options = ['ROT13', 'ROT47']
     print("\nDostępne rodzaje szyfrowań")
-    for value, key in enumerate(encrypt_options, start=1):
-        print(f"{value}. {key}")
+    CipherType.show_all()
     encrypt_option_chosen = int(input("Wybierz rodzaj szyfrowania: "))
-    if encrypt_option_chosen - 1 < len(encrypt_options):
-        return encrypt_options[encrypt_option_chosen - 1]
+    if list(CipherType)[encrypt_option_chosen - 1]:
+        return list(CipherType)[encrypt_option_chosen - 1].value
     else:
         print("Podano nieprawidłową wartość!")
         chose_rot_type()
