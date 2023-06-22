@@ -69,12 +69,30 @@ def str_to_decode(memory_buffer: MemoryBuffer) -> MemoryBuffer:
         memory_buffer.add_to_memory_buffer(txt)
     return memory_buffer
 
-def set_str_to_memory_buffer(memory_buffer: MemoryBuffer, *args: str) -> None:
-    text = input("Podaj napis do zaszyfrowania: ")
-    rot_type = chose_rot_type()
-    text_obj = Text(text, rot_type, args[0])
-    memory_buffer.add_to_memory_buffer(text_obj)
+def source_input():
+    suboption = input("W jaki sposób chcesz podać dane:\n1.Wpisując ręcznie\n2.Wczytując tekst")
+    return suboption
 
+def set_str_to_memory_buffer(memory_buffer: MemoryBuffer, *args: str) -> None:
+    suboption = source_input()
+    match suboption:
+        case '1':
+            text = input("Podaj napis do zaszyfrowania: ")
+            rot_type = chose_rot_type()
+            text_obj = Text(text, rot_type, args[0])
+            memory_buffer.add_to_memory_buffer(text_obj)
+        case '2':
+            print("""Wczytany plik powinien mieć rozszerzenie .json i posiadać następującą strukturę
+            [{"txt": "test do odszyfrowania/zaszyfrowania"}]""")
+            file_name = input("Podaj nazwę pliku: ") + '.json'
+            if FileHandler.check_file(file_name):
+                data = FileHandler.open(file_name)
+                rot_type = chose_rot_type()
+                text_obj = Text(data, rot_type, args[0])
+                memory_buffer.add_to_memory_buffer(text_obj)
+            else:
+                print("Podany plik nie istnieje")
+                set_str_to_memory_buffer(memory_buffer, args[0])
 def display_menu(memory_buffer_len: int) -> None:
     if memory_buffer_len == 0:
         print("\n1. Dodaj napis do szyfrowania\n2. Dodaj napis do odszyfrowania\n3. Zamknij program")
