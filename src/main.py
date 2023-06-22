@@ -4,15 +4,15 @@ from src.Cipher import *
 from src.FileHandler import *
 from src.MemoryBuffer import MemoryBuffer
 from src.Text import Text
+from src.Statuses import Statuses
+from src.Cipher_type import CipherType
 
 def chose_rot_type() -> str:
-    encrypt_options = ['ROT13', 'ROT47']
     print("\nDostępne rodzaje szyfrowań")
-    for value, key in enumerate(encrypt_options, start=1):
-        print(f"{value}. {key}")
+    CipherType.show_all()
     encrypt_option_chosen = int(input("Wybierz rodzaj szyfrowania: "))
-    if encrypt_option_chosen - 1 < len(encrypt_options):
-        return encrypt_options[encrypt_option_chosen - 1]
+    if list(CipherType)[encrypt_option_chosen - 1]:
+        return list(CipherType)[encrypt_option_chosen - 1].value
     else:
         print("Podano nieprawidłową wartość!")
         chose_rot_type()
@@ -37,7 +37,7 @@ def save_to_file_question(memory_buffer: MemoryBuffer, rot_tyoe: str, status: st
         if answer == 't':
             file_name, did_override = get_file_name()
             if did_override == 't':
-                memory_buffer.insert(0, FileHandler.append(file_name))
+                memory_buffer.insert_to_memory_buffer(0, FileHandler.append(file_name))
             for text in memory_buffer.memory_buffer:
                 file = Text(text, rot_tyoe, status)
                 FileHandler.save(file_name, did_override)
@@ -50,31 +50,30 @@ def save_to_file_question(memory_buffer: MemoryBuffer, rot_tyoe: str, status: st
         print("Podano nieprawidłowy znak")
         save_to_file_question(memory_buffer)
 
-
-def encrypt(memory_buffer: list[str], encrypt_option: str) -> list[str]:
-    encrypt_result = []
-    for text in memory_buffer:
-        if encrypt_option == 'ROT13':
-            encrypt_result.append(Cipher.rot13(text))
-        elif encrypt_option == "ROT47":
-            encrypt_result.append(Cipher.rot47(text))
-    return encrypt_result
-
-def str_to_decode(memory_buffer: MemoryBuffer) -> MemoryBuffer:
-    print("\nPusty napis kończy dodawanie napisów do szyfrowania")
-    while True:
-        txt = input("Podaj tekst do zaszyfrowania: ")
-        if txt == '':
-            break
-        memory_buffer.add_to_memory_buffer(txt)
-    return memory_buffer
+def source_input():
+    suboption = input("W jaki sposób chcesz podać dane:\n1.Wpisując ręcznie\n2.Wczytując tekst")
+    return suboption
 
 def set_str_to_memory_buffer(memory_buffer: MemoryBuffer, *args: str) -> None:
-    text = input("Podaj napis do zaszyfrowania: ")
-    rot_type = chose_rot_type()
-    text_obj = Text(text, rot_type, args[0])
-    memory_buffer.add_to_memory_buffer(text_obj)
-
+    suboption = source_input()
+    match suboption:
+        case '1':
+            text = input("Podaj napis do zaszyfrowania: ")
+            rot_type = chose_rot_type()
+            text_obj = Text(text, rot_type, args[0])
+            memory_buffer.add_to_memory_buffer(text_obj)
+        case '2':
+            print("""Wczytany plik powinien mieć rozszerzenie .json i posiadać następującą strukturę
+            [{"txt": "test do odszyfrowania/zaszyfrowania"}]""")
+            file_name = input("Podaj nazwę pliku: ") + '.json'
+            if FileHandler.check_file(file_name):
+                data = FileHandler.open(file_name)
+                rot_type = chose_rot_type()
+                text_obj = Text(data, rot_type, args[0])
+                memory_buffer.add_to_memory_buffer(text_obj)
+            else:
+                print("Podany plik nie istnieje")
+                set_str_to_memory_buffer(memory_buffer, args[0])
 def display_menu(memory_buffer_len: int) -> None:
     if memory_buffer_len == 0:
         print("\n1. Dodaj napis do szyfrowania\n2. Dodaj napis do odszyfrowania\n3. Zamknij program")
@@ -90,9 +89,9 @@ def main():
         option = input("Wybierz opcję: ")
         match option:
             case "1":
-                set_str_to_memory_buffer(memory_buffer, "encrypted")
+                set_str_to_memory_buffer(memory_buffer, Statuses.TO_ENCRYPT.value)
             case "2":
-                set_str_to_memory_buffer(memory_buffer, "decrypted")
+                set_str_to_memory_buffer(memory_buffer, Statuses.TO_DECRYPT.value)
             case "3":
                 if memory_buffer.get_length() == 0:
                     print("Zamykam program")
