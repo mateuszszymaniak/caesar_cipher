@@ -2,6 +2,7 @@ import json
 import os
 from src.MemoryBuffer import MemoryBuffer
 from src.Text import Text
+from src.Cipher import Cipher
 
 class FileHandler:
     @staticmethod
@@ -25,6 +26,7 @@ class FileHandler:
         file_exist: bool = FileHandler.check_file(file_name)
         if file_exist: #TODO need add encrypt/decrypt text from memory_buffer
             FileHandler.override_file(file_name, memory_buffer)
+        Cipher.convert(memory_buffer)
         FileHandler.save(file_name)
         MemoryBuffer.clear_memory_buffer()
 

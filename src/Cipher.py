@@ -1,3 +1,4 @@
+from src.MemoryBuffer import MemoryBuffer
 class Cipher:
 
     @staticmethod
@@ -31,3 +32,13 @@ class Cipher:
             else:
                 result += letter
         return result
+
+    @staticmethod
+    def convert(memory_buffer):
+        for obj in MemoryBuffer.memory_buffer:
+            match obj.rot_type.lower():
+                case 'rot13':
+                    obj.txt = Cipher.rot13(obj.txt)
+                case 'rot47':
+                    obj.txt = Cipher.rot47(obj.txt)
+        return memory_buffer
