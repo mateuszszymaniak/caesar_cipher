@@ -7,18 +7,21 @@ from src.Cipher import Cipher
 class FileHandler:
     @staticmethod
     def save(file_name: str):
-        with open(file_name, 'w') as writer:
-            json.dump(MemoryBuffer.memory_buffer_to_dict(), writer)
+        with open(file_name, 'w', encoding='utf-8') as writer:
+            json.dump(MemoryBuffer.memory_buffer_to_dict(), writer, ensure_ascii=False)
 
     @staticmethod
     def open(file_name):
         result = []
-        with open(file_name, 'r') as reader:
+        with open(file_name, 'r', encoding='utf-8') as reader:
             data = json.load(reader)
         for i in data:
-            text_obj = Text(i['txt'], i['rot_type'], i['status'])
-            result.append(text_obj)
-        return result
+            if len(i.keys()) == 1:
+                return i['txt']
+            else:
+                text_obj = Text(i['txt'], i['rot_type'], i['status'])
+                result.append(text_obj)
+            return result
 
     @staticmethod
     def prepare_save(memory_buffer: MemoryBuffer):
