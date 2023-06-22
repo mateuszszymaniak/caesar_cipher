@@ -4,6 +4,7 @@ from src.Cipher import *
 from src.FileHandler import *
 from src.MemoryBuffer import MemoryBuffer
 from src.Text import Text
+from src.Statuses import Statuses
 
 def chose_rot_type() -> str:
     encrypt_options = ['ROT13', 'ROT47']
@@ -108,9 +109,9 @@ def main():
         option = input("Wybierz opcję: ")
         match option:
             case "1":
-                set_str_to_memory_buffer(memory_buffer, "encrypted")
+                set_str_to_memory_buffer(memory_buffer, Statuses.TO_ENCRYPT.value)
             case "2":
-                set_str_to_memory_buffer(memory_buffer, "decrypted")
+                set_str_to_memory_buffer(memory_buffer, Statuses.TO_DECRYPT.value)
             case "3":
                 if memory_buffer.get_length() == 0:
                     print("Zamykam program")

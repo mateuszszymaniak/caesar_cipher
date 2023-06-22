@@ -1,4 +1,5 @@
 from src.MemoryBuffer import MemoryBuffer
+from src.Statuses import Statuses
 class Cipher:
 
     @staticmethod
@@ -41,4 +42,5 @@ class Cipher:
                     obj.txt = Cipher.rot13(obj.txt)
                 case 'rot47':
                     obj.txt = Cipher.rot47(obj.txt)
+            obj.status = Statuses.change_status(obj.status)
         return memory_buffer
