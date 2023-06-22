@@ -1,10 +1,6 @@
 from dataclasses import dataclass, asdict
 from src.Text import Text
-@dataclass()
-class Text:
-    txt: str
-    rot_type: str
-    status: str
+
 class MemoryBuffer:
     memory_buffer = []
 
