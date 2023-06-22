@@ -37,7 +37,7 @@ def save_to_file_question(memory_buffer: MemoryBuffer, rot_tyoe: str, status: st
         if answer == 't':
             file_name, did_override = get_file_name()
             if did_override == 't':
-                memory_buffer.insert(0, FileHandler.append(file_name))
+                memory_buffer.insert_to_memory_buffer(0, FileHandler.append(file_name))
             for text in memory_buffer.memory_buffer:
                 file = Text(text, rot_tyoe, status)
                 FileHandler.save(file_name, did_override)

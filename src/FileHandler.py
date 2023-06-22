@@ -21,7 +21,7 @@ class FileHandler:
             else:
                 text_obj = Text(i['txt'], i['rot_type'], i['status'])
                 result.append(text_obj)
-            return result
+        return result
 
     @staticmethod
     def prepare_save(memory_buffer: MemoryBuffer):
@@ -47,7 +47,6 @@ class FileHandler:
     @staticmethod
     def append(file_name: str, memory_buffer):
         data = FileHandler.open(file_name)
-        print(data)
         for key, value in enumerate(data):
             memory_buffer = MemoryBuffer.insert_to_memory_buffer(value, key)
         return memory_buffer
