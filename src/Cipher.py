@@ -37,13 +37,10 @@ class Cipher:
     @staticmethod
     def convert(memory_buffer):
         for obj in MemoryBuffer.memory_buffer:
-            if obj.status == Statuses.DECRYPT.value or obj.status == Statuses.ENCRYPT.value:
-                pass
-            else:
-                match obj.rot_type.lower():
-                    case 'rot13':
-                        obj.txt = Cipher.rot13(obj.txt)
-                    case 'rot47':
-                        obj.txt = Cipher.rot47(obj.txt)
-                obj.status = Statuses.change_status(obj.status)
+            match obj.rot_type.lower():
+                case 'rot13':
+                    obj.txt = Cipher.rot13(obj.txt)
+                case 'rot47':
+                    obj.txt = Cipher.rot47(obj.txt)
+            obj.status = Statuses.change_status(obj.status)
         return memory_buffer

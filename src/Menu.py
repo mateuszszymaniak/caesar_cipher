@@ -55,24 +55,42 @@ class Menu:
     @classmethod
     def set_str_to_memory_buffer(cls, memory_buffer: MemoryBuffer, *args: str) -> None:
         suboption = cls.source_input()
-        match suboption:
-            case '1':
-                text = input(Messages.TXT_TO_ENCODE.value if args[0] == Statuses.TO_ENCRYPT.value else Messages.TXT_TO_DECODE.value)
-                rot_type = cls.chose_rot_type()
-                text_obj = Text(text, rot_type, args[0])
-                memory_buffer.add_to_memory_buffer(text_obj)
-            case '2':
-                print(Messages.LOAD_FROM_FILE_WARNING.value)
-                file_name = input(Messages.NAME_OF_FILE.value) + '.json'
-                if FileHandler.check_file(file_name):
-                    data = FileHandler.open(file_name)
+        if args[0] == Statuses.TO_ENCRYPT.value:
+            match suboption:
+                case '1':
+                    text = input(Messages.TXT_TO_ENCODE.value)
                     rot_type = cls.chose_rot_type()
-                    text_obj = Text(data, rot_type, args[0])
+                    text_obj = Text(text, rot_type, args[0])
                     memory_buffer.add_to_memory_buffer(text_obj)
-                else:
-                    print(Messages.FILE_NOT_EXIST.value)
-                    cls.set_str_to_memory_buffer(memory_buffer, args[0])
-
+                case '2':
+                    print(Messages.LOAD_FROM_FILE_TO_ENCRYPT_WARNING.value)
+                    file_name = input(Messages.NAME_OF_FILE.value) + '.json'
+                    if FileHandler.check_file(file_name):
+                        data = FileHandler.open(file_name)
+                        rot_type = cls.chose_rot_type()
+                        text_obj = Text(data, rot_type, args[0])
+                        memory_buffer.add_to_memory_buffer(text_obj)
+                    else:
+                        print(Messages.FILE_NOT_EXIST.value)
+                        cls.set_str_to_memory_buffer(memory_buffer, args[0])
+        else:
+            match suboption:
+                case '1':
+                    text = input(Messages.TXT_TO_DECODE.value)
+                    rot_type = cls.chose_rot_type()
+                    text_obj = Text(text, rot_type, args[0])
+                    memory_buffer.add_to_memory_buffer(text_obj)
+                case '2':
+                    print(Messages.LOAD_FROM_FILE_TO_DECRYPT_WARNING.value)
+                    file_name = input(Messages.NAME_OF_FILE.value) + '.json'
+                    if FileHandler.check_file(file_name):
+                        data = FileHandler.open(file_name)
+                        for obj in data:
+                            text_obj = Text(obj.txt, obj.rot_type, obj.status)
+                            memory_buffer.add_to_memory_buffer(text_obj)
+                    else:
+                        print(Messages.FILE_NOT_EXIST.value)
+                        cls.set_str_to_memory_buffer(memory_buffer, args[0])
     @classmethod
     def chose_rot_type(cls) -> str:
         print(f"{Messages.AVAILABLE_ROT_TYPES.value}")
