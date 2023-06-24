@@ -7,12 +7,15 @@ class Statuses(Enum):
     DECRYPT = 'decrypt'
 
     @staticmethod
-    def change_status(status):
+    def change_status_before_convert(status):
         if status == Statuses.TO_ENCRYPT.value:
             return Statuses.ENCRYPT.value
         elif status == Statuses.TO_DECRYPT.value:
             return Statuses.DECRYPT.value
-        elif status == Statuses.ENCRYPT.value:
-            return Statuses.DECRYPT.value
-        else:
-            return Statuses.ENCRYPT.value
+
+    @staticmethod
+    def change_status_after_load(status):
+        if status == Statuses.ENCRYPT.value:
+            return Statuses.TO_DECRYPT.value
+        elif status == Statuses.DECRYPT.value:
+            return Statuses.TO_ENCRYPT.value

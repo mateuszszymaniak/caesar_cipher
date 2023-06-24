@@ -86,6 +86,7 @@ class Menu:
                     if FileHandler.check_file(file_name):
                         data = FileHandler.open(file_name)
                         for obj in data:
+                            obj.status = Statuses.change_status_after_load(obj.status)
                             text_obj = Text(obj.txt, obj.rot_type, obj.status)
                             memory_buffer.add_to_memory_buffer(text_obj)
                     else:
