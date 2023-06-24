@@ -7,11 +7,16 @@ class Messages(Enum):
     TXT_TO_ENCODE = "\nPodaj napis do zaszyfrowania: "
     TXT_TO_DECODE = "\nPodaj napis do odszyfrowania: "
     NAME_OF_FILE = "\nPodaj nazwę pliku: "
-    LOAD_FROM_FILE_WARNING = """Wczytany plik powinien mieć rozszerzenie .json i posiadać następującą strukturę
+    LOAD_FROM_FILE_TO_ENCRYPT_WARNING = """Wczytany plik powinien mieć rozszerzenie .json i posiadać następującą strukturę
     
-    [{"txt": "test do odszyfrowania/zaszyfrowania"}]
+    [{"txt": "tekst do odszyfrowania/zaszyfrowania"}]
+    """
+    LOAD_FROM_FILE_TO_DECRYPT_WARNING = """Wczytany plik powinien mieć rozszerzenie .json i posiadać następującą strukturę
+    
+    [{"txt": "tekst do odszyfrowania/zaszyfrowania", "rot_type": "rodzaj szyfrowania", "status": "status"}]
     """
     FILE_NOT_EXIST = "Podany plik nie istnieje"
     AVAILABLE_ROT_TYPES = "\nDostępne rodzaje szyfrowań"
     CHOOSE_ROT_TYPE = "Wybierz rodzaj szyfrowania: "
     OVERRIDE_FILE = "Podany plik istnieje. Czy chcesz dodać zawartość do pliku? [t/n]: "
+    WHAT_TO_CONVERT = "Co ma zrobić?"

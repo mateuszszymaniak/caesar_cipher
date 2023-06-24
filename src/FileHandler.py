@@ -3,6 +3,7 @@ import os
 from src.MemoryBuffer import MemoryBuffer
 from src.Text import Text
 from src.Cipher import Cipher
+from src.enums.Messages import Messages
 
 class FileHandler:
     @staticmethod
@@ -32,7 +33,12 @@ class FileHandler:
         file_exist: bool = FileHandler.check_file(file_name)
         if file_exist: #TODO need add encrypt/decrypt text from memory_buffer
             FileHandler.override_file(file_name, memory_buffer)
-        Cipher.convert(memory_buffer)
+        print(Messages.WHAT_TO_CONVERT)
+        print("1. Zaszyfruj/Odszyfruj wszystko")
+        print("2. Tylko zaszyfruj")
+        print("3. Tylko odszyfruj")
+        convert_option = input(Messages.CHOOSE_OPTION)
+        Cipher.convert(memory_buffer, convert_option)
         FileHandler.save(file_name)
         MemoryBuffer.clear_memory_buffer()
 
