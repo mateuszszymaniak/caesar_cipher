@@ -34,13 +34,44 @@ class Cipher:
                 result += letter
         return result
 
-    @staticmethod
-    def convert(memory_buffer):
-        for obj in MemoryBuffer.memory_buffer:
-            match obj.rot_type.lower():
-                case 'rot13':
-                    obj.txt = Cipher.rot13(obj.txt)
-                case 'rot47':
-                    obj.txt = Cipher.rot47(obj.txt)
-            obj.status = Statuses.change_status(obj.status)
+    @classmethod
+    def convert(cls, memory_buffer, convert_option):
+        if convert_option == '1':
+            memory_buffer = cls.convert_all(memory_buffer)
+        elif convert_option == '2':
+            memory_buffer = cls.convert_to_encrypt(memory_buffer)
+        elif convert_option == '3':
+            memory_buffer = cls.convert_to_decrypt(memory_buffer)
         return memory_buffer
+
+    @classmethod
+    def convert_all(cls, memory_buffer):
+        for obj in MemoryBuffer.memory_buffer:
+            obj.txt = cls.convert_text(obj.txt, obj.rot_type)
+            obj.status = Statuses.change_status_before_convert(obj.status)
+        return memory_buffer
+
+    @classmethod
+    def convert_to_encrypt(cls, memory_buffer):
+        for obj in MemoryBuffer.memory_buffer:
+            if obj.status == 'to_encypt':
+                obj.txt = cls.convert_text(obj.txt, obj.rot_type)
+                obj.status = Statuses.change_status_before_convert(obj.status)
+        return memory_buffer
+
+    @staticmethod
+    def convert_to_decrypt(memory_buffer):
+        for obj in MemoryBuffer.memory_buffer:
+            if obj.status == 'to_decypt':
+                obj.txt = cls.convert_text(obj.txt, obj.rot_type)
+                obj.status = Statuses.change_status_before_convert(obj.status)
+        return memory_buffer
+
+    @staticmethod
+    def convert_text(txt, rot_type):
+        match rot_type.lower():
+            case 'rot13':
+                txt = Cipher.rot13(txt)
+            case 'rot47':
+                txt = Cipher.rot47(txt)
+        return txt
