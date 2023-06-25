@@ -7,12 +7,24 @@ from src.enums.Messages import Messages
 
 class FileHandler:
     @staticmethod
-    def save(file_name: str):
+    def save(file_name: str) -> None:
+        """
+        Method create json file
+
+        :param file_name: str
+        :return: None
+        """
         with open(file_name, 'w', encoding='utf-8') as writer:
             json.dump(MemoryBuffer.memory_buffer_to_dict(), writer, ensure_ascii=False)
 
     @staticmethod
-    def open(file_name):
+    def open(file_name: str) -> list:
+        """
+        Method open json file and save data to list
+
+        :param file_name: str
+        :return: list
+        """
         result = []
         with open(file_name, 'r', encoding='utf-8') as reader:
             data = json.load(reader)
@@ -25,7 +37,19 @@ class FileHandler:
         return result
 
     @staticmethod
-    def prepare_save(memory_buffer: MemoryBuffer):
+    def prepare_save(memory_buffer: MemoryBuffer) -> None:
+        """
+        Method which prepare data to save:
+        1. Get from user name of creating file
+        2. Check if filename is not empty
+        3. Check if filename exist
+        4. Display what should be converted
+        5. Save to file
+        6. Clear memory_buffer
+
+        :param memory_buffer: Memory_buffer
+        :return: None
+        """
         file_name = input("Podaj nazwę pliku: ") + '.json'
         if file_name == ".json":
             print("Podano pustą nazwę pliku!")
@@ -44,17 +68,39 @@ class FileHandler:
 
     @staticmethod
     def check_file(file_name: str) -> bool:
+        """
+        Method which check did file exist
+
+        :param file_name: str
+        :return: bool
+        """
         return os.path.isfile(file_name)
 
     @staticmethod
-    def override_file(file_name: str, memory_buffer: MemoryBuffer):
+    def override_file(file_name: str, memory_buffer: MemoryBuffer) -> MemoryBuffer:
+        """
+        Method which call when filename exist in directory.
+        When user want to add file into memory_buffer need to type 't'.
+        Otherwise data of this file will override (file will be cleared) and memory_buffer will be added to created file.
+
+        :param file_name: str
+        :param memory_buffer: MemoryBuffer
+        :return: MemoryBuffer
+        """
         choice = input("Podana nazwa pliku istnieje. Czy dopisać do pliky? [t/n]: ")
         if choice == 't':
             memory_buffer = FileHandler.append(file_name, memory_buffer)
         return memory_buffer
 
     @staticmethod
-    def append(file_name: str, memory_buffer):
+    def append(file_name: str, memory_buffer: MemoryBuffer) -> MemoryBuffer:
+        """
+        Method which add Text object into memory_buffer
+
+        :param file_name: str
+        :param memory_buffer: MemoryBuffer
+        :return: MemoryBuffer
+        """
         data = FileHandler.open(file_name)
         for key, value in enumerate(data):
             memory_buffer = MemoryBuffer.insert_to_memory_buffer(value, key)
