@@ -5,6 +5,11 @@ class CipherType(Enum):
     ROT47 = "ROT47"
 
     @staticmethod
-    def show_all():
+    def show_all() -> None:
+        """
+        Method display all available rot types
+
+        :return: None
+        """
         for key, value in enumerate(CipherType, start=1):
             print(f"{key}. {value.value}")
