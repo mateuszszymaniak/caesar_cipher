@@ -57,6 +57,8 @@ class Cipher:
             if obj.status == 'to_encrypt':
                 obj.txt = cls.convert_text(obj.txt, obj.rot_type)
                 obj.status = Statuses.change_status_before_convert(obj.status)
+            else:
+                obj.status = Statuses.revert_status_for_unused_convert(obj.status)
         return memory_buffer
 
     @classmethod
@@ -65,6 +67,8 @@ class Cipher:
             if obj.status == 'to_decrypt':
                 obj.txt = cls.convert_text(obj.txt, obj.rot_type)
                 obj.status = Statuses.change_status_before_convert(obj.status)
+            else:
+                obj.status = Statuses.revert_status_for_unused_convert(obj.status)
         return memory_buffer
 
     @staticmethod
