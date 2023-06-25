@@ -50,12 +50,12 @@ class FileHandler:
         :param memory_buffer: Memory_buffer
         :return: None
         """
-        file_name = input("Podaj nazwę pliku: ") + '.json'
+        file_name = input(Messages.NAME_OF_FILE.value) + '.json'
         if file_name == ".json":
-            print("Podano pustą nazwę pliku!")
+            print(Messages.EMPTY_FILE_NAME.value)
             FileHandler.prepare_save(memory_buffer)
         file_exist: bool = FileHandler.check_file(file_name)
-        if file_exist: #TODO need add encrypt/decrypt text from memory_buffer
+        if file_exist:
             FileHandler.override_file(file_name, memory_buffer)
         print(Messages.WHAT_TO_CONVERT.value)
         print("1. Zaszyfruj/Odszyfruj wszystko")
@@ -87,7 +87,7 @@ class FileHandler:
         :param memory_buffer: MemoryBuffer
         :return: MemoryBuffer
         """
-        choice = input("Podana nazwa pliku istnieje. Czy dopisać do pliky? [t/n]: ")
+        choice = input(Messages.FILE_EXIST.value)
         if choice == 't':
             memory_buffer = FileHandler.append(file_name, memory_buffer)
         return memory_buffer
