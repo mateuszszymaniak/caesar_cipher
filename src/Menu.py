@@ -86,12 +86,12 @@ class Menu:
                 case '2':
                     print(Messages.LOAD_FROM_FILE_TO_ENCRYPT_WARNING.value)
                     file_name = input(Messages.NAME_OF_FILE.value) + '.json'
-                    if FileHandler.check_file(file_name):
+                    try:
                         data = FileHandler.open(file_name)
                         rot_type = cls.chose_rot_type()
                         text_obj = Text(data, rot_type, args[0])
                         memory_buffer.add_to_memory_buffer(text_obj)
-                    else:
+                    except FileNotFoundError:
                         print(Messages.FILE_NOT_EXIST.value)
                         cls.set_str_to_memory_buffer(memory_buffer, args[0])
         else:
@@ -104,13 +104,13 @@ class Menu:
                 case '2':
                     print(Messages.LOAD_FROM_FILE_TO_DECRYPT_WARNING.value)
                     file_name = input(Messages.NAME_OF_FILE.value) + '.json'
-                    if FileHandler.check_file(file_name):
+                    try:
                         data = FileHandler.open(file_name)
                         for obj in data:
                             obj.status = Statuses.change_status_after_load(obj.status)
                             text_obj = Text(obj.txt, obj.rot_type, obj.status)
                             memory_buffer.add_to_memory_buffer(text_obj)
-                    else:
+                    except FileNotFoundError:
                         print(Messages.FILE_NOT_EXIST.value)
                         cls.set_str_to_memory_buffer(memory_buffer, args[0])
     @classmethod
@@ -120,11 +120,11 @@ class Menu:
 
         :return: str
         """
-        print(f"{Messages.AVAILABLE_ROT_TYPES.value}")
+        print(Messages.AVAILABLE_ROT_TYPES.value)
         CipherType.show_all()
         encrypt_option_chosen = int(input(Messages.CHOOSE_ROT_TYPE.value))
-        if list(CipherType)[encrypt_option_chosen - 1]:
+        try:
             return list(CipherType)[encrypt_option_chosen - 1].value
-        else:
+        except IndexError:
             print(Messages.WRONG_ACTION.value)
             cls.chose_rot_type()
