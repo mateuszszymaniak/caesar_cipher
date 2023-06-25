@@ -148,19 +148,3 @@ class Menu:
                 print(Messages.WRONG_ACTION.value)
                 cls.get_file_name()
         return file_name, did_add_to_file
-
-    @classmethod
-    def save_to_file_question(cls, memory_buffer: MemoryBuffer, rot_tyoe: str, status: str) -> None:
-        answer = input(Messages.SAVE_TO_FILE_QUESTION.value).lower()
-        if answer == 't':
-            file_name, did_override = cls.get_file_name()
-            if did_override == 't':
-                memory_buffer.insert_to_memory_buffer(0, FileHandler.append(file_name))
-            for text in memory_buffer.memory_buffer:
-                file = Text(text, rot_tyoe, status)
-                FileHandler.save(file_name, did_override)
-        elif answer == 'n':
-            pass
-        else:
-            print(Messages.WRONG_ACTION.value)
-            cls.save_to_file_question(memory_buffer)
