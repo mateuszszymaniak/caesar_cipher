@@ -11,12 +11,24 @@ class Menu:
 
     @staticmethod
     def display_menu(memory_buffer_len: int) -> None:
+        """
+        Method control displaying menu depends on length of memory_buffer
+
+        :param memory_buffer_len: int
+        :return: None
+        """
         if memory_buffer_len == 0:
             Options.empty_memory_buffer_options()
         else:
             Options.not_empty_memory_buffer()
     @classmethod
-    def show_main_menu(cls, memory_buffer):
+    def show_main_menu(cls, memory_buffer: MemoryBuffer) -> None:
+        """
+        Method shows main menu of program
+
+        :param memory_buffer: MemoryBuffer
+        :return: None
+        """
         Menu.display_menu(memory_buffer.get_length())
         option = input(Messages.CHOOSE_OPTION.value)
         match option:
@@ -45,13 +57,24 @@ class Menu:
                 print(Messages.WRONG_ACTION.value)
 
     @staticmethod
-    def source_input():
-        #src.enums.Options.Suboptions.show_all()
+    def source_input() -> str:
+        """
+        Method displays suboption of methods of load data to convert and return chosen option
+
+        :return: str
+        """
         suboption = input(f"\nW jaki sposób chcesz podać tekst?\n{Suboptions.show_all()}")
         return suboption
 
     @classmethod
     def set_str_to_memory_buffer(cls, memory_buffer: MemoryBuffer, *args: str) -> None:
+        """
+        Method initialize of adding txt to encrypt/decrypt into memory_buffer
+
+        :param memory_buffer: MemoryBuffer
+        :param args: str
+        :return: None
+        """
         suboption = cls.source_input()
         if args[0] == Statuses.TO_ENCRYPT.value:
             match suboption:
@@ -92,6 +115,11 @@ class Menu:
                         cls.set_str_to_memory_buffer(memory_buffer, args[0])
     @classmethod
     def chose_rot_type(cls) -> str:
+        """
+        Method display available rot types and allow to choose one
+
+        :return: str
+        """
         print(f"{Messages.AVAILABLE_ROT_TYPES.value}")
         CipherType.show_all()
         encrypt_option_chosen = int(input(Messages.CHOOSE_ROT_TYPE.value))
@@ -103,6 +131,11 @@ class Menu:
 
     @classmethod
     def get_file_name(cls) -> tuple[str, (str, None)]:
+        """
+        Method gets from user filename and if exist did he want to add data of file into memory_buffer
+
+        :return: tuple[str, (str, None)]
+        """
         did_add_to_file = None
         file_name = input(Messages.NAME_OF_FILE.value) + '.json'
         if os.path.isfile(file_name):
@@ -117,7 +150,7 @@ class Menu:
         return file_name, did_add_to_file
 
     @classmethod
-    def save_to_file_question(cls, memory_buffer: MemoryBuffer, rot_tyoe: str, status: str):
+    def save_to_file_question(cls, memory_buffer: MemoryBuffer, rot_tyoe: str, status: str) -> None:
         answer = input(Messages.SAVE_TO_FILE_QUESTION.value).lower()
         if answer == 't':
             file_name, did_override = cls.get_file_name()
