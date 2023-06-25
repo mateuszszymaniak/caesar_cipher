@@ -19,4 +19,6 @@ class Messages(Enum):
     AVAILABLE_ROT_TYPES = "\nDostępne rodzaje szyfrowań"
     CHOOSE_ROT_TYPE = "Wybierz rodzaj szyfrowania: "
     OVERRIDE_FILE = "Podany plik istnieje. Czy chcesz dodać zawartość do pliku? [t/n]: "
-    WHAT_TO_CONVERT = "Co ma zrobić?"
+    WHAT_TO_CONVERT = "\nCo ma zrobić?"
+    EMPTY_FILE_NAME = "Podano pustą nazwę pliku!"
+    FILE_EXIST = "Podana nazwa pliku istnieje. Czy dopisać do pliku? [t/n]: "

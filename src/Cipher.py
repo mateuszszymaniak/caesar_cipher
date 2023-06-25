@@ -1,5 +1,5 @@
 from src.MemoryBuffer import MemoryBuffer
-from src.Statuses import Statuses
+from src.enums.Statuses import Statuses
 class Cipher:
 
     @staticmethod
@@ -7,6 +7,9 @@ class Cipher:
         """
         Method encrypt/decrypt string to its representation in rot13 algorithm
         i.e. "abc" -> "nop"
+
+        :param txt: str
+        :return: txt: str
         """
         result = ""
         for letter in txt:
@@ -23,6 +26,9 @@ class Cipher:
         """
         Method encrypt/decrypt string to its representation in rot47 algorithm
         i.e. "abc" -> "234"
+
+        :param txt: str
+        :return: txt: str
         """
         result = ""
         for letter in txt:
@@ -35,40 +41,77 @@ class Cipher:
         return result
 
     @classmethod
-    def convert(cls, memory_buffer, convert_option):
-        if convert_option == '1':
-            memory_buffer = cls.convert_all(memory_buffer)
-        elif convert_option == '2':
-            memory_buffer = cls.convert_to_encrypt(memory_buffer)
-        elif convert_option == '3':
-            memory_buffer = cls.convert_to_decrypt(memory_buffer)
+    def convert(cls, memory_buffer: MemoryBuffer, convert_option: str) -> MemoryBuffer:
+        """
+        Method which control which text conversion use
+
+        :param memory_buffer: MemoryBuffer
+        :param convert_option: str
+        :return: memory_buffer: MemoryBuffer
+        """
+        match convert_option:
+            case '1':
+                memory_buffer = cls.convert_all(memory_buffer)
+            case '2':
+                memory_buffer = cls.convert_to_encrypt(memory_buffer)
+            case '3':
+                memory_buffer = cls.convert_to_decrypt(memory_buffer)
         return memory_buffer
 
     @classmethod
-    def convert_all(cls, memory_buffer):
+    def convert_all(cls, memory_buffer: MemoryBuffer) -> MemoryBuffer:
+        """
+        Method convert decryt/encrypt text for all objects in memory_buffer
+
+        :param memory_buffer: MemoryBuffer
+        :return: memory_buffer: MemoryBuffer
+        """
         for obj in MemoryBuffer.memory_buffer:
             obj.txt = cls.convert_text(obj.txt, obj.rot_type)
             obj.status = Statuses.change_status_before_convert(obj.status)
         return memory_buffer
 
     @classmethod
-    def convert_to_encrypt(cls, memory_buffer):
+    def convert_to_encrypt(cls, memory_buffer: MemoryBuffer) -> MemoryBuffer:
+        """
+        Method convert only this objects which status is 'to_encrypt'
+
+        :param memory_buffer: MemoryBuffer
+        :return: memory_buffer: MemoryBuffer
+        """
         for obj in MemoryBuffer.memory_buffer:
-            if obj.status == 'to_encypt':
+            if obj.status == 'to_encrypt':
                 obj.txt = cls.convert_text(obj.txt, obj.rot_type)
                 obj.status = Statuses.change_status_before_convert(obj.status)
+            else:
+                obj.status = Statuses.revert_status_for_unused_convert(obj.status)
+        return memory_buffer
+
+    @classmethod
+    def convert_to_decrypt(cls, memory_buffer: MemoryBuffer) -> MemoryBuffer:
+        """
+        Method convert only this objects which status is 'to_decrypt'
+
+        :param memory_buffer: MemoryBuffer
+        :return: memory_buffer: MemoryBuffer
+        """
+        for obj in MemoryBuffer.memory_buffer:
+            if obj.status == 'to_decrypt':
+                obj.txt = cls.convert_text(obj.txt, obj.rot_type)
+                obj.status = Statuses.change_status_before_convert(obj.status)
+            else:
+                obj.status = Statuses.revert_status_for_unused_convert(obj.status)
         return memory_buffer
 
     @staticmethod
-    def convert_to_decrypt(memory_buffer):
-        for obj in MemoryBuffer.memory_buffer:
-            if obj.status == 'to_decypt':
-                obj.txt = cls.convert_text(obj.txt, obj.rot_type)
-                obj.status = Statuses.change_status_before_convert(obj.status)
-        return memory_buffer
+    def convert_text(txt: str, rot_type: str) -> str:
+        """
+        Method which convert text using given rot_type
 
-    @staticmethod
-    def convert_text(txt, rot_type):
+        :param txt: str
+        :param rot_type: str
+        :return: str
+        """
         match rot_type.lower():
             case 'rot13':
                 txt = Cipher.rot13(txt)
