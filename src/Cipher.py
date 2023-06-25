@@ -54,15 +54,15 @@ class Cipher:
     @classmethod
     def convert_to_encrypt(cls, memory_buffer):
         for obj in MemoryBuffer.memory_buffer:
-            if obj.status == 'to_encypt':
+            if obj.status == 'to_encrypt':
                 obj.txt = cls.convert_text(obj.txt, obj.rot_type)
                 obj.status = Statuses.change_status_before_convert(obj.status)
         return memory_buffer
 
-    @staticmethod
-    def convert_to_decrypt(memory_buffer):
+    @classmethod
+    def convert_to_decrypt(cls, memory_buffer):
         for obj in MemoryBuffer.memory_buffer:
-            if obj.status == 'to_decypt':
+            if obj.status == 'to_decrypt':
                 obj.txt = cls.convert_text(obj.txt, obj.rot_type)
                 obj.status = Statuses.change_status_before_convert(obj.status)
         return memory_buffer
