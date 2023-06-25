@@ -1,5 +1,5 @@
 from src.MemoryBuffer import MemoryBuffer
-from src.Statuses import Statuses
+from src.enums.Statuses import Statuses
 class Cipher:
 
     @staticmethod

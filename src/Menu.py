@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import src.enums.Options
 from src.FileHandler import *
 from src.MemoryBuffer import MemoryBuffer
 from src.Text import Text
-from src.Statuses import Statuses
+from src.enums.Statuses import Statuses
 from src.Cipher_type import CipherType
-from src.enums.Messages import Messages
 from src.enums.Options import *
 
 class Menu:
