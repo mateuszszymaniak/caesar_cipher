@@ -128,23 +128,3 @@ class Menu:
         else:
             print(Messages.WRONG_ACTION.value)
             cls.chose_rot_type()
-
-    @classmethod
-    def get_file_name(cls) -> tuple[str, (str, None)]:
-        """
-        Method gets from user filename and if exist did he want to add data of file into memory_buffer
-
-        :return: tuple[str, (str, None)]
-        """
-        did_add_to_file = None
-        file_name = input(Messages.NAME_OF_FILE.value) + '.json'
-        if os.path.isfile(file_name):
-            did_add_to_file = input(Messages.OVERRIDE_FILE.value)
-            if did_add_to_file == 't':
-                did_add_to_file = 't'
-            elif did_add_to_file == 'n':
-                cls.get_file_name()
-            else:
-                print(Messages.WRONG_ACTION.value)
-                cls.get_file_name()
-        return file_name, did_add_to_file
