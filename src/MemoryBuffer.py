@@ -15,6 +15,7 @@ class MemoryBuffer:
         :return: int
         """
         return len(cls.memory_buffer)
+
     @classmethod
     def add_to_memory_buffer(cls, text_object: Text) -> None:
         """

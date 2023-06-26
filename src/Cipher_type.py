@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class CipherType(Enum):
     ROT13 = "ROT13"
     ROT47 = "ROT47"

@@ -1,10 +1,11 @@
 from enum import Enum
 
+
 class Statuses(Enum):
-    TO_ENCRYPT = 'to_encrypt'
-    TO_DECRYPT = 'to_decrypt'
-    ENCRYPT = 'encrypt'
-    DECRYPT = 'decrypt'
+    TO_ENCRYPT = "to_encrypt"
+    TO_DECRYPT = "to_decrypt"
+    ENCRYPT = "encrypt"
+    DECRYPT = "decrypt"
 
     @staticmethod
     def change_status_before_convert(status):

@@ -7,8 +7,8 @@ from src.enums.Statuses import Statuses
 from src.Cipher_type import CipherType
 from src.enums.Options import *
 
-class Menu:
 
+class Menu:
     @staticmethod
     def display_menu(memory_buffer_len: int) -> None:
         """
@@ -21,6 +21,7 @@ class Menu:
             Options.empty_memory_buffer_options()
         else:
             Options.not_empty_memory_buffer()
+
     @classmethod
     def show_main_menu(cls, memory_buffer: MemoryBuffer) -> None:
         """
@@ -63,7 +64,9 @@ class Menu:
 
         :return: str
         """
-        suboption = input(f"\nW jaki sposób chcesz podać tekst?\n{Suboptions.show_all()}")
+        suboption = input(
+            f"\nW jaki sposób chcesz podać tekst?\n{Suboptions.show_all()}"
+        )
         return suboption
 
     @classmethod
@@ -78,14 +81,14 @@ class Menu:
         suboption = cls.source_input()
         if args[0] == Statuses.TO_ENCRYPT.value:
             match suboption:
-                case '1':
+                case "1":
                     text = input(Messages.TXT_TO_ENCODE.value)
                     rot_type = cls.chose_rot_type()
                     text_obj = Text(text, rot_type, args[0])
                     memory_buffer.add_to_memory_buffer(text_obj)
-                case '2':
+                case "2":
                     print(Messages.LOAD_FROM_FILE_TO_ENCRYPT_WARNING.value)
-                    file_name = input(Messages.NAME_OF_FILE.value) + '.json'
+                    file_name = input(Messages.NAME_OF_FILE.value) + ".json"
                     try:
                         data = FileHandler.open(file_name)
                         rot_type = cls.chose_rot_type()
@@ -96,14 +99,14 @@ class Menu:
                         cls.set_str_to_memory_buffer(memory_buffer, args[0])
         else:
             match suboption:
-                case '1':
+                case "1":
                     text = input(Messages.TXT_TO_DECODE.value)
                     rot_type = cls.chose_rot_type()
                     text_obj = Text(text, rot_type, args[0])
                     memory_buffer.add_to_memory_buffer(text_obj)
-                case '2':
+                case "2":
                     print(Messages.LOAD_FROM_FILE_TO_DECRYPT_WARNING.value)
-                    file_name = input(Messages.NAME_OF_FILE.value) + '.json'
+                    file_name = input(Messages.NAME_OF_FILE.value) + ".json"
                     try:
                         data = FileHandler.open(file_name)
                         for obj in data:
@@ -113,6 +116,7 @@ class Menu:
                     except FileNotFoundError:
                         print(Messages.FILE_NOT_EXIST.value)
                         cls.set_str_to_memory_buffer(memory_buffer, args[0])
+
     @classmethod
     def chose_rot_type(cls) -> str:
         """
