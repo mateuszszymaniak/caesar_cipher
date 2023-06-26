@@ -5,6 +5,7 @@ from src.Text import Text
 from src.Cipher import Cipher
 from src.enums.Messages import Messages
 
+
 class FileHandler:
     @staticmethod
     def save(file_name: str) -> None:
@@ -14,7 +15,7 @@ class FileHandler:
         :param file_name: str
         :return: None
         """
-        with open(file_name, 'w', encoding='utf-8') as writer:
+        with open(file_name, "w", encoding="utf-8") as writer:
             json.dump(MemoryBuffer.memory_buffer_to_dict(), writer, ensure_ascii=False)
 
     @staticmethod
@@ -26,13 +27,13 @@ class FileHandler:
         :return: list
         """
         result = []
-        with open(file_name, 'r', encoding='utf-8') as reader:
+        with open(file_name, "r", encoding="utf-8") as reader:
             data = json.load(reader)
         for i in data:
             if len(i.keys()) == 1:
-                return i['txt']
+                return i["txt"]
             else:
-                text_obj = Text(i['txt'], i['rot_type'], i['status'])
+                text_obj = Text(i["txt"], i["rot_type"], i["status"])
                 result.append(text_obj)
         return result
 
@@ -50,7 +51,7 @@ class FileHandler:
         :param memory_buffer: Memory_buffer
         :return: None
         """
-        file_name = input(Messages.NAME_OF_FILE.value) + '.json'
+        file_name = input(Messages.NAME_OF_FILE.value) + ".json"
         if file_name == ".json":
             print(Messages.EMPTY_FILE_NAME.value)
             FileHandler.prepare_save(memory_buffer)
@@ -88,7 +89,7 @@ class FileHandler:
         :return: MemoryBuffer
         """
         choice = input(Messages.FILE_EXIST.value)
-        if choice == 't':
+        if choice == "t":
             memory_buffer = FileHandler.append(file_name, memory_buffer)
         return memory_buffer
 

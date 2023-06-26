@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Messages(Enum):
     CHOOSE_OPTION = "Wybierz opcję: "
     WRONG_ACTION = "Wybrano nieprawidłową akcję!"

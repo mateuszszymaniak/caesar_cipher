@@ -1,6 +1,7 @@
 from enum import Enum
 from src.enums.Messages import Messages
 
+
 class Options(Enum):
     ADD_STR_TO_ENCRYPT = "Dodaj napis do szyfrowania"
     ADD_STR_TO_DECRYPT = "Dodaj napis do odszyfrowania"
@@ -8,11 +9,14 @@ class Options(Enum):
     SHOW_STR = "Wyświetl napisy"
     EXIT = "Zamknięcie programu"
 
-
     @classmethod
     def empty_memory_buffer_options(cls):
         print()
-        available_options = [cls.ADD_STR_TO_ENCRYPT.value, cls.ADD_STR_TO_DECRYPT.value, cls.EXIT.value]
+        available_options = [
+            cls.ADD_STR_TO_ENCRYPT.value,
+            cls.ADD_STR_TO_DECRYPT.value,
+            cls.EXIT.value,
+        ]
         for key, value in enumerate(available_options, start=1):
             print(f"{key}. {value}")
 
@@ -21,6 +25,7 @@ class Options(Enum):
         print()
         for key, value in enumerate(cls, start=1):
             print(f"{key}. {value.value}")
+
 
 class Suboptions(Enum):
     FROM_CONSOLE = "Wpisując ręcznie"
@@ -32,4 +37,4 @@ class Suboptions(Enum):
         for key, value in enumerate(cls, start=1):
             result.append(f"{key}. {value.value}")
         result.append(Messages.CHOOSE_OPTION.value)
-        return '\n'.join(result)
+        return "\n".join(result)

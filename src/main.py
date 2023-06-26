@@ -1,6 +1,7 @@
 from src.MemoryBuffer import MemoryBuffer
 from src.Menu import Menu
 
+
 def main():
     memory_buffer = MemoryBuffer
     print("Szyfr Cezara (ROT13/ROT47)")

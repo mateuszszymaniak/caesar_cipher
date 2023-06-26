@@ -1,7 +1,8 @@
 from src.MemoryBuffer import MemoryBuffer
 from src.enums.Statuses import Statuses
-class Cipher:
 
+
+class Cipher:
     @staticmethod
     def rot13(txt: str) -> str:
         """
@@ -50,11 +51,11 @@ class Cipher:
         :return: memory_buffer: MemoryBuffer
         """
         match convert_option:
-            case '1':
+            case "1":
                 memory_buffer = cls.convert_all(memory_buffer)
-            case '2':
+            case "2":
                 memory_buffer = cls.convert_to_encrypt(memory_buffer)
-            case '3':
+            case "3":
                 memory_buffer = cls.convert_to_decrypt(memory_buffer)
         return memory_buffer
 
@@ -80,7 +81,7 @@ class Cipher:
         :return: memory_buffer: MemoryBuffer
         """
         for obj in MemoryBuffer.memory_buffer:
-            if obj.status == 'to_encrypt':
+            if obj.status == "to_encrypt":
                 obj.txt = cls.convert_text(obj.txt, obj.rot_type)
                 obj.status = Statuses.change_status_before_convert(obj.status)
             else:
@@ -96,7 +97,7 @@ class Cipher:
         :return: memory_buffer: MemoryBuffer
         """
         for obj in MemoryBuffer.memory_buffer:
-            if obj.status == 'to_decrypt':
+            if obj.status == "to_decrypt":
                 obj.txt = cls.convert_text(obj.txt, obj.rot_type)
                 obj.status = Statuses.change_status_before_convert(obj.status)
             else:
@@ -113,8 +114,8 @@ class Cipher:
         :return: str
         """
         match rot_type.lower():
-            case 'rot13':
+            case "rot13":
                 txt = Cipher.rot13(txt)
-            case 'rot47':
+            case "rot47":
                 txt = Cipher.rot47(txt)
         return txt
