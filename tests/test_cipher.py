@@ -1,4 +1,4 @@
-from src.Cipher import *
+from src.cipher import *
 
 
 def test_ro13_convert():

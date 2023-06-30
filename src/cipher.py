@@ -1,5 +1,5 @@
-from src.MemoryBuffer import MemoryBuffer
-from src.enums.Statuses import Statuses
+from src.memorybuffer import MemoryBuffer
+from src.enums.statuses import Statuses
 
 
 class Cipher:

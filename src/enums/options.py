@@ -1,5 +1,5 @@
 from enum import Enum
-from src.enums.Messages import Messages
+from src.enums.messages import Messages
 
 
 class Options(Enum):

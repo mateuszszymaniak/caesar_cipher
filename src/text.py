@@ -7,5 +7,5 @@ class Text:
     rot_type: str
     status: str
 
-    def __repr__(self):
+    def __str__(self):
         return f"txt = {self.txt}, rot_type = {self.rot_type}, status = {self.status}"

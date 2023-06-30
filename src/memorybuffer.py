@@ -1,7 +1,7 @@
 from dataclasses import dataclass, asdict
 from typing import Any
 
-from src.Text import Text
+from src.text import Text
 
 
 class MemoryBuffer:
@@ -27,7 +27,7 @@ class MemoryBuffer:
         cls.memory_buffer.append(text_object)
 
     @classmethod
-    def insert_to_memory_buffer(cls, text_object, position) -> list[Any]:
+    def insert_to_memory_buffer(cls, text_object: Text, position: int) -> list[Any]:
         """
         Method insert Text object in position to memory_buffer
 
@@ -54,8 +54,8 @@ class MemoryBuffer:
 
         :return: None
         """
-        for item in cls.memory_buffer:
-            print(item)
+        for idx, item in enumerate(cls.memory_buffer, start=1):
+            print(f'{idx}. {item}')
 
     @classmethod
     def clear_memory_buffer(cls) -> None:
@@ -65,3 +65,7 @@ class MemoryBuffer:
         :return: None
         """
         cls.memory_buffer.clear()
+
+    @classmethod
+    def is_empty(cls) -> bool:
+        return len(cls.memory_buffer) == 0

@@ -1,14 +1,14 @@
 from __future__ import annotations
 
-from src.FileHandler import *
-from src.MemoryBuffer import MemoryBuffer
-from src.Text import Text
-from src.enums.Statuses import Statuses
-from src.Cipher_type import CipherType
-from src.enums.Options import *
+from src.filehandler import *
+from src.memorybuffer import MemoryBuffer
+from src.text import Text
+from src.enums.statuses import Statuses
+from src.cipher_type import CipherType
+from src.enums.options import *
 
 
-class Menu:
+class Menu: # MANAGER
     @staticmethod
     def display_menu(memory_buffer_len: int) -> None:
         """
@@ -23,33 +23,31 @@ class Menu:
             Options.not_empty_memory_buffer()
 
     @classmethod
-    def show_main_menu(cls, memory_buffer: MemoryBuffer) -> None:
+    def show_main_menu(cls) -> None:
         """
         Method shows main menu of program
 
-        :param memory_buffer: MemoryBuffer
-        :return: None
         """
-        Menu.display_menu(memory_buffer.get_length())
+        Menu.display_menu(MemoryBuffer.get_length())
         option = input(Messages.CHOOSE_OPTION.value)
         match option:
             case "1":
-                cls.set_str_to_memory_buffer(memory_buffer, Statuses.TO_ENCRYPT.value)
+                cls.set_str_to_memory_buffer(MemoryBuffer, Statuses.TO_ENCRYPT.value)
             case "2":
-                cls.set_str_to_memory_buffer(memory_buffer, Statuses.TO_DECRYPT.value)
+                cls.set_str_to_memory_buffer(MemoryBuffer, Statuses.TO_DECRYPT.value)
             case "3":
-                if memory_buffer.get_length() == 0:
+                if MemoryBuffer.is_empty():
                     print("Zamykam program")
                     exit()
                 else:
-                    FileHandler.prepare_save(memory_buffer)
+                    FileHandler.prepare_save(MemoryBuffer)
             case "4":
-                if memory_buffer.get_length() == 0:
+                if MemoryBuffer.is_empty():
                     print(Messages.WRONG_ACTION.value)
                 else:
-                    memory_buffer.show_memory_buffer()
+                    MemoryBuffer.show_memory_buffer()
             case "5":
-                if memory_buffer.get_length() == 0:
+                if MemoryBuffer.is_empty():
                     print(Messages.WRONG_ACTION.value)
                 else:
                     print("Zamykam program")
@@ -88,7 +86,7 @@ class Menu:
                     memory_buffer.add_to_memory_buffer(text_obj)
                 case "2":
                     print(Messages.LOAD_FROM_FILE_TO_ENCRYPT_WARNING.value)
-                    file_name = input(Messages.NAME_OF_FILE.value) + ".json"
+                    file_name = input(Messages.NAME_OF_FILE.value)
                     try:
                         data = FileHandler.open(file_name)
                         rot_type = cls.chose_rot_type()
@@ -106,7 +104,7 @@ class Menu:
                     memory_buffer.add_to_memory_buffer(text_obj)
                 case "2":
                     print(Messages.LOAD_FROM_FILE_TO_DECRYPT_WARNING.value)
-                    file_name = input(Messages.NAME_OF_FILE.value) + ".json"
+                    file_name = input(Messages.NAME_OF_FILE.value)
                     try:
                         data = FileHandler.open(file_name)
                         for obj in data:
@@ -126,9 +124,14 @@ class Menu:
         """
         print(Messages.AVAILABLE_ROT_TYPES.value)
         CipherType.show_all()
-        encrypt_option_chosen = int(input(Messages.CHOOSE_ROT_TYPE.value))
+        encrypt_option_chosen = int(input(Messages.CHOOSE_ROT_TYPE.value)) - 1
         try:
-            return list(CipherType)[encrypt_option_chosen - 1].value
+            return list(CipherType)[encrypt_option_chosen].value
         except IndexError:
             print(Messages.WRONG_ACTION.value)
             cls.chose_rot_type()
+
+    @classmethod
+    def run(cls):
+        while True:
+            Menu.show_main_menu()
