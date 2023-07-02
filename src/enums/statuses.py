@@ -27,3 +27,8 @@ class Statuses(Enum):
             return Statuses.ENCRYPT.value
         elif status == Statuses.TO_ENCRYPT.value:
             return Statuses.DECRYPT.value
+
+        if status == Statuses.ENCRYPT.value:
+            return Statuses.ENCRYPT.value
+        elif status == Statuses.DECRYPT.value:
+            return Statuses.DECRYPT.value
