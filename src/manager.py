@@ -41,6 +41,7 @@ class Manager:
                     exit()
                 else:
                     FileHandler.prepare_save(MemoryBuffer)
+                    MemoryBuffer.clear_memory_buffer()
             case "4":
                 if MemoryBuffer.is_empty():
                     print(Messages.WRONG_ACTION.value)

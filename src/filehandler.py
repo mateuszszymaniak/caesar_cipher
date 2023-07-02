@@ -62,7 +62,6 @@ class FileHandler:
         convert_option = input(Messages.CHOOSE_OPTION.value)
         Cipher.convert(memory_buffer, convert_option)
         FileHandler.save(file_name)
-        MemoryBuffer.clear_memory_buffer()
 
     @staticmethod
     def check_file(file_name: str) -> bool:
