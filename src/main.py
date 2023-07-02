@@ -1,9 +1,9 @@
-from src.menu import Menu
+from src.manager import Manager
 
 
 def main():
     print("Szyfr Cezara (ROT13/ROT47)")
-    Menu.run()
+    Manager.run()
 
 
 if __name__ == "__main__":

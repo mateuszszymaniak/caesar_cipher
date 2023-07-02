@@ -8,7 +8,7 @@ from src.cipher_type import CipherType
 from src.enums.options import *
 
 
-class Menu: # MANAGER
+class Manager:
     @staticmethod
     def display_menu(memory_buffer_len: int) -> None:
         """
@@ -28,7 +28,7 @@ class Menu: # MANAGER
         Method shows main menu of program
 
         """
-        Menu.display_menu(MemoryBuffer.get_length())
+        Manager.display_menu(MemoryBuffer.get_length())
         option = input(Messages.CHOOSE_OPTION.value)
         match option:
             case "1":
@@ -134,4 +134,4 @@ class Menu: # MANAGER
     @classmethod
     def run(cls):
         while True:
-            Menu.show_main_menu()
+            Manager.show_main_menu()
