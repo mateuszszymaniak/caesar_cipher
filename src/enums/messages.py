@@ -8,7 +8,10 @@ class Messages(Enum):
     TXT_TO_ENCODE = "\nPodaj napis do zaszyfrowania: "
     TXT_TO_DECODE = "\nPodaj napis do odszyfrowania: "
     NAME_OF_FILE = "\nPodaj nazwę pliku: "
-    WHAT_TO_CONVERT = "\nCo ma zrobić?"
+    WHAT_TO_CONVERT = """\nCo ma zrobić?
+1. Zaszyfruj/Odszyfruj wszystko
+2. Tylko zaszyfruj
+3. Tylko odszyfruj"""
 
 
 class FileMessages(Enum):

@@ -59,9 +59,6 @@ class FileHandler:
         if file_exist:
             FileHandler.override_file(file_name, memory_buffer)
         print(Messages.WHAT_TO_CONVERT.value)
-        print("1. Zaszyfruj/Odszyfruj wszystko")
-        print("2. Tylko zaszyfruj")
-        print("3. Tylko odszyfruj")
         convert_option = input(Messages.CHOOSE_OPTION.value)
         Cipher.convert(memory_buffer, convert_option)
         FileHandler.save(file_name)
