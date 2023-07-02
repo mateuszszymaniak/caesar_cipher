@@ -55,7 +55,7 @@ class MemoryBuffer:
         :return: None
         """
         for idx, item in enumerate(cls.memory_buffer, start=1):
-            print(f'{idx}. {item}')
+            print(f"{idx}. {item}")
 
     @classmethod
     def clear_memory_buffer(cls) -> None:

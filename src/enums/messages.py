@@ -25,6 +25,7 @@ class FileMessages(Enum):
     EMPTY_FILE_NAME = "Podano pustą nazwę pliku!"
     FILE_EXIST = "Podana nazwa pliku istnieje. Czy dopisać do pliku? [t/n]: "
 
+
 class RotMessages(Enum):
     AVAILABLE_ROT_TYPES = "\nDostępne rodzaje szyfrowań"
     CHOOSE_ROT_TYPE = "Wybierz rodzaj szyfrowania: "
