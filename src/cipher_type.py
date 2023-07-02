@@ -11,6 +11,6 @@ class CipherType(Enum):
 
         :return: None
         """
-        available_ciphers = [a for a in dir(Rots) if "rot" in a]
+        available_ciphers = [method for method in dir(Rots) if "rot" in method]
         for key, value in enumerate(available_ciphers, start=1):
             print(f"{key}. {value.upper()}")
