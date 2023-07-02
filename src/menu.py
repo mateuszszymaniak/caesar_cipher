@@ -85,7 +85,7 @@ class Menu: # MANAGER
                     text_obj = Text(text, rot_type, args[0])
                     memory_buffer.add_to_memory_buffer(text_obj)
                 case "2":
-                    print(Messages.LOAD_FROM_FILE_TO_ENCRYPT_WARNING.value)
+                    print(FileMessages.LOAD_FROM_FILE_TO_ENCRYPT_WARNING.value)
                     file_name = input(Messages.NAME_OF_FILE.value)
                     try:
                         data = FileHandler.open(file_name)
@@ -93,7 +93,7 @@ class Menu: # MANAGER
                         text_obj = Text(data, rot_type, args[0])
                         memory_buffer.add_to_memory_buffer(text_obj)
                     except FileNotFoundError:
-                        print(Messages.FILE_NOT_EXIST.value)
+                        print(FileMessages.FILE_NOT_EXIST.value)
                         cls.set_str_to_memory_buffer(memory_buffer, args[0])
         else:
             match suboption:
@@ -103,7 +103,7 @@ class Menu: # MANAGER
                     text_obj = Text(text, rot_type, args[0])
                     memory_buffer.add_to_memory_buffer(text_obj)
                 case "2":
-                    print(Messages.LOAD_FROM_FILE_TO_DECRYPT_WARNING.value)
+                    print(FileMessages.LOAD_FROM_FILE_TO_DECRYPT_WARNING.value)
                     file_name = input(Messages.NAME_OF_FILE.value)
                     try:
                         data = FileHandler.open(file_name)
@@ -112,7 +112,7 @@ class Menu: # MANAGER
                             text_obj = Text(obj.txt, obj.rot_type, obj.status)
                             memory_buffer.add_to_memory_buffer(text_obj)
                     except FileNotFoundError:
-                        print(Messages.FILE_NOT_EXIST.value)
+                        print(FileMessages.FILE_NOT_EXIST.value)
                         cls.set_str_to_memory_buffer(memory_buffer, args[0])
 
     @classmethod
@@ -122,9 +122,9 @@ class Menu: # MANAGER
 
         :return: str
         """
-        print(Messages.AVAILABLE_ROT_TYPES.value)
+        print(RotMessages.AVAILABLE_ROT_TYPES.value)
         CipherType.show_all()
-        encrypt_option_chosen = int(input(Messages.CHOOSE_ROT_TYPE.value)) - 1
+        encrypt_option_chosen = int(input(RotMessages.CHOOSE_ROT_TYPE.value)) - 1
         try:
             return list(CipherType)[encrypt_option_chosen].value
         except IndexError:

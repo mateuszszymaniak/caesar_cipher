@@ -3,7 +3,7 @@ import os
 from src.memorybuffer import MemoryBuffer
 from src.text import Text
 from src.cipher import Cipher
-from src.enums.messages import Messages
+from src.enums.messages import *
 
 
 class FileHandler:
@@ -54,7 +54,7 @@ class FileHandler:
         """
         file_name = input(Messages.NAME_OF_FILE.value) + ".json"
         if file_name == ".json":
-            print(Messages.EMPTY_FILE_NAME.value)
+            print(FileMessages.EMPTY_FILE_NAME.value)
             FileHandler.prepare_save(memory_buffer)
         file_exist: bool = FileHandler.check_file(file_name)
         if file_exist:
@@ -89,7 +89,7 @@ class FileHandler:
         :param memory_buffer: MemoryBuffer
         :return: MemoryBuffer
         """
-        choice = input(Messages.FILE_EXIST.value)
+        choice = input(FileMessages.FILE_EXIST.value)
         if choice == "t":
             memory_buffer = FileHandler.append(file_name, memory_buffer)
         return memory_buffer
