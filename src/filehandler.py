@@ -1,9 +1,9 @@
 import json
 import os
-from src.MemoryBuffer import MemoryBuffer
-from src.Text import Text
-from src.Cipher import Cipher
-from src.enums.Messages import Messages
+from src.memorybuffer import MemoryBuffer
+from src.text import Text
+from src.cipher import Cipher
+from src.enums.messages import *
 
 
 class FileHandler:
@@ -15,8 +15,8 @@ class FileHandler:
         :param file_name: str
         :return: None
         """
-        with open(file_name, "w", encoding="utf-8") as writer:
-            json.dump(MemoryBuffer.memory_buffer_to_dict(), writer, ensure_ascii=False)
+        with open(file_name, "w", encoding="utf-8") as file:
+            json.dump(MemoryBuffer.memory_buffer_to_dict(), file, ensure_ascii=False)
 
     @staticmethod
     def open(file_name: str) -> list:
@@ -26,9 +26,10 @@ class FileHandler:
         :param file_name: str
         :return: list
         """
+
         result = []
-        with open(file_name, "r", encoding="utf-8") as reader:
-            data = json.load(reader)
+        with open(file_name, "r", encoding="utf-8") as file:
+            data = json.load(file)
         for i in data:
             if len(i.keys()) == 1:
                 return i["txt"]
@@ -41,31 +42,26 @@ class FileHandler:
     def prepare_save(memory_buffer: MemoryBuffer) -> None:
         """
         Method which prepare data to save:
-        1. Get from user name of creating file
+        1. Get the file name from the user
         2. Check if filename is not empty
         3. Check if filename exist
         4. Display what should be converted
         5. Save to file
         6. Clear memory_buffer
 
-        :param memory_buffer: Memory_buffer
-        :return: None
         """
-        file_name = input(Messages.NAME_OF_FILE.value) + ".json"
-        if file_name == ".json":
-            print(Messages.EMPTY_FILE_NAME.value)
+        file_name = input(Messages.NAME_OF_FILE.value)
+        if file_name == "":
+            print(FileMessages.EMPTY_FILE_NAME.value)
             FileHandler.prepare_save(memory_buffer)
+        file_name += '.json'
         file_exist: bool = FileHandler.check_file(file_name)
         if file_exist:
             FileHandler.override_file(file_name, memory_buffer)
         print(Messages.WHAT_TO_CONVERT.value)
-        print("1. Zaszyfruj/Odszyfruj wszystko")
-        print("2. Tylko zaszyfruj")
-        print("3. Tylko odszyfruj")
         convert_option = input(Messages.CHOOSE_OPTION.value)
         Cipher.convert(memory_buffer, convert_option)
         FileHandler.save(file_name)
-        MemoryBuffer.clear_memory_buffer()
 
     @staticmethod
     def check_file(file_name: str) -> bool:
@@ -88,7 +84,7 @@ class FileHandler:
         :param memory_buffer: MemoryBuffer
         :return: MemoryBuffer
         """
-        choice = input(Messages.FILE_EXIST.value)
+        choice = input(FileMessages.FILE_EXIST.value)
         if choice == "t":
             memory_buffer = FileHandler.append(file_name, memory_buffer)
         return memory_buffer

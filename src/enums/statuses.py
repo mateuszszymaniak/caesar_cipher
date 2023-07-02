@@ -4,8 +4,8 @@ from enum import Enum
 class Statuses(Enum):
     TO_ENCRYPT = "to_encrypt"
     TO_DECRYPT = "to_decrypt"
-    ENCRYPT = "encrypt"
-    DECRYPT = "decrypt"
+    ENCRYPT = "encrypted"
+    DECRYPT = "decrypted"
 
     @staticmethod
     def change_status_before_convert(status):
@@ -26,4 +26,9 @@ class Statuses(Enum):
         if status == Statuses.TO_DECRYPT.value:
             return Statuses.ENCRYPT.value
         elif status == Statuses.TO_ENCRYPT.value:
+            return Statuses.DECRYPT.value
+
+        if status == Statuses.ENCRYPT.value:
+            return Statuses.ENCRYPT.value
+        elif status == Statuses.DECRYPT.value:
             return Statuses.DECRYPT.value

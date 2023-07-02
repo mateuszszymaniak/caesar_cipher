@@ -1,13 +1,9 @@
-from src.MemoryBuffer import MemoryBuffer
-from src.Menu import Menu
+from src.manager import Manager
 
 
 def main():
-    memory_buffer = MemoryBuffer
     print("Szyfr Cezara (ROT13/ROT47)")
-
-    while True:
-        Menu.show_main_menu(memory_buffer)
+    Manager.run()
 
 
 if __name__ == "__main__":
