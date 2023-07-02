@@ -26,8 +26,6 @@ class FileHandler:
         :param file_name: str
         :return: list
         """
-        if not file_name.endswith('.json'):
-            file_name += '.json'
 
         result = []
         with open(file_name, "r", encoding="utf-8") as file:
@@ -52,10 +50,11 @@ class FileHandler:
         6. Clear memory_buffer
 
         """
-        file_name = input(Messages.NAME_OF_FILE.value) + ".json"
-        if file_name == ".json":
+        file_name = input(Messages.NAME_OF_FILE.value)
+        if file_name == "":
             print(FileMessages.EMPTY_FILE_NAME.value)
             FileHandler.prepare_save(memory_buffer)
+        file_name += '.json'
         file_exist: bool = FileHandler.check_file(file_name)
         if file_exist:
             FileHandler.override_file(file_name, memory_buffer)
