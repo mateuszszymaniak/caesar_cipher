@@ -19,4 +19,3 @@ def test_rot47_convert():
 def test_rot47_with_polish_characters():
     txt = "słońce"
     assert Rots.rot47(txt) == "Dł@ń46"
-
