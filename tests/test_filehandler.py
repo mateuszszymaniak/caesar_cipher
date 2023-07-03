@@ -1,3 +1,6 @@
+from unittest import mock
+from unittest.mock import patch
+
 import pytest
 import tempfile
 
@@ -18,12 +21,34 @@ def mock_obj_filehandler(mocker):
 
     return memory_buffer.memory_buffer
 
+
 def test_prepare_save(mock_obj_filehandler, monkeypatch):
     with tempfile.NamedTemporaryFile() as tmp_file:
-        inputs = iter([tmp_file.name, '2'])
-        monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+        inputs = iter([tmp_file.name, "2"])
+        monkeypatch.setattr("builtins.input", lambda _: next(inputs))
 
     FileHandler.prepare_save(mock_obj_filehandler)
 
     assert mock_obj_filehandler[0].status == "encrypted"
     assert mock_obj_filehandler[1].status == "encrypted"
+
+
+def test_open_correct_file_input():
+    result = FileHandler.open("correct_file_input.json")
+    assert result == "Ala ma kota\nMaciek ma psa"
+
+
+def test_open_correct_json_file_input():
+    result = FileHandler.open("correct_json_file_input.json")
+    assert result == [
+        Text("djr", "ROT13", "encrypted"),
+        Text("qwe", "ROT47", "decrypted"),
+    ]
+
+
+def test_override_file(mock_obj_filehandler, monkeypatch):
+    inputs = iter(["json_output_file", "t", "2"])
+    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+    FileHandler.prepare_save(mock_obj_filehandler)
+    assert mock_obj_filehandler[-2].status == "encrypted"
+    assert mock_obj_filehandler[-1].status == "encrypted"

@@ -54,7 +54,7 @@ class FileHandler:
         if file_name == "":
             print(FileMessages.EMPTY_FILE_NAME.value)
             FileHandler.prepare_save(memory_buffer)
-        file_name += '.json'
+        file_name += ".json"
         file_exist: bool = FileHandler.check_file(file_name)
         if file_exist:
             FileHandler.override_file(file_name, memory_buffer)
