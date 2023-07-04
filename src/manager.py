@@ -5,7 +5,7 @@ from src.memorybuffer import MemoryBuffer
 from src.text import Text
 from src.enums.statuses import Statuses
 from src.cipher_type import CipherType
-from src.enums.options import *
+from src.enums.options import Options, Suboptions
 
 
 class Manager:
