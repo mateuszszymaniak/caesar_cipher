@@ -64,8 +64,6 @@ class FileHandler:
         """
         Method which check did file exist
 
-        :param file_name: str
-        :return: bool
         """
         return os.path.isfile(file_name)
 
@@ -76,9 +74,6 @@ class FileHandler:
         When user want to add file into memory_buffer need to type 't'.
         Otherwise data of this file will override (file will be cleared) and memory_buffer will be added to created file.
 
-        :param file_name: str
-        :param memory_buffer: MemoryBuffer
-        :return: MemoryBuffer
         """
         choice = input(FileMessages.FILE_EXIST.value)
         if choice == "t":
@@ -90,9 +85,6 @@ class FileHandler:
         """
         Method which add Text object into memory_buffer
 
-        :param file_name: str
-        :param memory_buffer: MemoryBuffer
-        :return: MemoryBuffer
         """
         data = FileHandler.open(file_name)
         for key, value in enumerate(data):
