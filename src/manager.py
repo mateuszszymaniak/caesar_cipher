@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from src.filehandler import *
+from src.filehandler import FileMessages
 from src.memorybuffer import MemoryBuffer
 from src.text import Text
 from src.enums.statuses import Statuses
