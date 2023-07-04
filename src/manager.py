@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from src.filehandler import *
+from src.filehandler import FileHandler
 from src.memorybuffer import MemoryBuffer
 from src.text import Text
 from src.enums.statuses import Statuses
 from src.cipher_type import CipherType
-from src.enums.options import *
+from src.enums.options import Options, Suboptions
+from src.enums.messages import Messages, RotMessages, FileMessages
 
 
 class Manager:
@@ -14,8 +15,6 @@ class Manager:
         """
         Method control displaying menu depends on length of memory_buffer
 
-        :param memory_buffer_len: int
-        :return: None
         """
         if memory_buffer_len == 0:
             Options.empty_memory_buffer_options()
@@ -61,7 +60,6 @@ class Manager:
         """
         Method displays suboption of methods of load data to convert and return chosen option
 
-        :return: str
         """
         suboption = input(
             f"\nW jaki sposób chcesz podać tekst?\n{Suboptions.show_all()}"
@@ -73,9 +71,6 @@ class Manager:
         """
         Method initialize of adding txt to encrypt/decrypt into memory_buffer
 
-        :param memory_buffer: MemoryBuffer
-        :param args: str
-        :return: None
         """
         suboption = cls.source_input()
         if args[0] == Statuses.TO_ENCRYPT.value:
@@ -121,7 +116,6 @@ class Manager:
         """
         Method display available rot types and allow to choose one
 
-        :return: str
         """
         print(RotMessages.AVAILABLE_ROT_TYPES.value)
         CipherType.show_all()

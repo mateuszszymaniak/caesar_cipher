@@ -3,7 +3,7 @@ import os
 from src.memorybuffer import MemoryBuffer
 from src.text import Text
 from src.cipher import Cipher
-from src.enums.messages import *
+from src.enums.messages import Messages, FileMessages
 
 
 class FileHandler:
@@ -12,8 +12,6 @@ class FileHandler:
         """
         Method create json file
 
-        :param file_name: str
-        :return: None
         """
         with open(file_name, "w", encoding="utf-8") as file:
             json.dump(MemoryBuffer.memory_buffer_to_dict(), file, ensure_ascii=False)
@@ -23,8 +21,6 @@ class FileHandler:
         """
         Method open json file and save data to list
 
-        :param file_name: str
-        :return: list
         """
 
         result = []
@@ -68,8 +64,6 @@ class FileHandler:
         """
         Method which check did file exist
 
-        :param file_name: str
-        :return: bool
         """
         return os.path.isfile(file_name)
 
@@ -80,9 +74,6 @@ class FileHandler:
         When user want to add file into memory_buffer need to type 't'.
         Otherwise data of this file will override (file will be cleared) and memory_buffer will be added to created file.
 
-        :param file_name: str
-        :param memory_buffer: MemoryBuffer
-        :return: MemoryBuffer
         """
         choice = input(FileMessages.FILE_EXIST.value)
         if choice == "t":
@@ -94,9 +85,6 @@ class FileHandler:
         """
         Method which add Text object into memory_buffer
 
-        :param file_name: str
-        :param memory_buffer: MemoryBuffer
-        :return: MemoryBuffer
         """
         data = FileHandler.open(file_name)
         for key, value in enumerate(data):

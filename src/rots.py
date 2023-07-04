@@ -4,9 +4,6 @@ class Rots:
         """
         Method encrypt/decrypt string to its representation in rot13 algorithm
         i.e. "abc" -> "nop"
-
-        :param txt: str
-        :return: txt: str
         """
         result = ""
         for letter in txt:
@@ -23,9 +20,6 @@ class Rots:
         """
         Method encrypt/decrypt string to its representation in rot47 algorithm
         i.e. "abc" -> "234"
-
-        :param txt: str
-        :return: txt: str
         """
         result = ""
         for letter in txt:
