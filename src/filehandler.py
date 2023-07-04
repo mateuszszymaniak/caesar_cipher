@@ -3,7 +3,7 @@ import os
 from src.memorybuffer import MemoryBuffer
 from src.text import Text
 from src.cipher import Cipher
-from src.enums.messages import *
+from src.enums.messages import Messages, FileMessages
 
 
 class FileHandler:
