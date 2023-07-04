@@ -6,6 +6,7 @@ from src.text import Text
 from src.enums.statuses import Statuses
 from src.cipher_type import CipherType
 from src.enums.options import Options, Suboptions
+from src.enums.messages import Messages, RotMessages
 
 
 class Manager:
