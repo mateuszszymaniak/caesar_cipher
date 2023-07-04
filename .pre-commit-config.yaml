@@ -14,3 +14,8 @@ repos:
     rev: 1.7.5
     hooks:
       - id: bandit
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v2.3.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [ commit-msg ]
