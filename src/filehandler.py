@@ -12,8 +12,6 @@ class FileHandler:
         """
         Method create json file
 
-        :param file_name: str
-        :return: None
         """
         with open(file_name, "w", encoding="utf-8") as file:
             json.dump(MemoryBuffer.memory_buffer_to_dict(), file, ensure_ascii=False)
@@ -23,8 +21,6 @@ class FileHandler:
         """
         Method open json file and save data to list
 
-        :param file_name: str
-        :return: list
         """
 
         result = []
