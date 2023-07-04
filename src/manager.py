@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from src.filehandler import FileMessages
+from src.filehandler import FileHandler
 from src.memorybuffer import MemoryBuffer
 from src.text import Text
 from src.enums.statuses import Statuses
 from src.cipher_type import CipherType
 from src.enums.options import Options, Suboptions
-from src.enums.messages import Messages, RotMessages
+from src.enums.messages import Messages, RotMessages, FileMessages
 
 
 class Manager:
