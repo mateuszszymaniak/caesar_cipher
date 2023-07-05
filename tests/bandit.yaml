@@ -1,2 +1,1 @@
-ssert_used:
-  skips: ["*/test_*.py"]
+skips: [B101]
