@@ -1,3 +1,5 @@
+import json
+import os
 from unittest.mock import Mock
 
 import pytest
@@ -36,21 +38,42 @@ def test_prepare_save(mock_obj_filehandler, monkeypatch):
 
 
 def test_open_correct_file_input():
-    result = FileHandler.open("correct_file_input.json")
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".json", encoding="utf-8", delete=False
+    ) as tmp:
+        json.dump([{"txt": "Ala ma kota\nMaciek ma psa"}], tmp)
+    result = FileHandler.open(tmp.name)
     assert result == "Ala ma kota\nMaciek ma psa"
+    os.remove(tmp.name)
 
 
 def test_open_correct_json_file_input():
-    result = FileHandler.open("correct_json_file_input.json")
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".json", encoding="utf-8", delete=False
+    ) as tmp:
+        json.dump(
+            [
+                {"txt": "djr", "rot_type": "ROT13", "status": "encrypted"},
+                {"txt": "qwe", "rot_type": "ROT47", "status": "decrypted"},
+            ],
+            tmp,
+        )
+    result = FileHandler.open(tmp.name)
     assert result == [
         Text("djr", "ROT13", "encrypted"),
         Text("qwe", "ROT47", "decrypted"),
     ]
+    os.remove(tmp.name)
 
 
 def test_override_file(mock_obj_filehandler, monkeypatch):
-    inputs = iter(["json_output_file", "t", "2"])
+    with tempfile.NamedTemporaryFile(
+        mode="w", dir=".", suffix=".json", encoding="utf-8", delete=False
+    ) as tmp:
+        json.dump([{"txt": "djr", "rot_type": "ROT13", "status": "encrypted"}], tmp)
+    inputs = iter([tmp.name[:-5], "t", "2"])
     monkeypatch.setattr("builtins.input", lambda _: next(inputs))
     FileHandler.prepare_save(mock_obj_filehandler)
     assert mock_obj_filehandler.memory_buffer[-2].status == "encrypted"
     assert mock_obj_filehandler.memory_buffer[-1].status == "encrypted"
+    os.remove(tmp.name)
