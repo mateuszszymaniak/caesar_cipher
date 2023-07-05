@@ -8,13 +8,13 @@ from src.enums.messages import Messages, FileMessages
 
 class FileHandler:
     @staticmethod
-    def save(file_name: str) -> None:
+    def save(file_name: str, memory_buffer: MemoryBuffer) -> None:
         """
         Method create json file
 
         """
         with open(file_name, "w", encoding="utf-8") as file:
-            json.dump(MemoryBuffer.memory_buffer_to_dict(), file, ensure_ascii=False)
+            json.dump(memory_buffer.memory_buffer_to_dict(), file, ensure_ascii=False)
 
     @staticmethod
     def open(file_name: str) -> list:
@@ -57,7 +57,7 @@ class FileHandler:
         print(Messages.WHAT_TO_CONVERT.value)
         convert_option = input(Messages.CHOOSE_OPTION.value)
         Cipher.convert(memory_buffer, convert_option)
-        FileHandler.save(file_name)
+        FileHandler.save(file_name, memory_buffer)
 
     @staticmethod
     def check_file(file_name: str) -> bool:
@@ -88,5 +88,5 @@ class FileHandler:
         """
         data = FileHandler.open(file_name)
         for key, value in enumerate(data):
-            memory_buffer = MemoryBuffer.insert_to_memory_buffer(value, key)
+            memory_buffer.insert_to_memory_buffer(value, key)
         return memory_buffer
