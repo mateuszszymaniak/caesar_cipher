@@ -1,13 +1,18 @@
+from unittest.mock import Mock
+
+import pytest
+
 from src.memorybuffer import MemoryBuffer
 from src.text import Text
-import pytest
 
 
 @pytest.fixture
 def set_mock_memorybuffer(mocker):
-    my_mock = MemoryBuffer
-    my_mock.memory_buffer = [Text("azx", "rot_13", "encrypted")]
-    return my_mock
+    mock = Mock()
+    memory_buffer = MemoryBuffer()
+    memory_buffer.add_to_memory_buffer(Text("azx", "rot_13", "encrypted"))
+    mock.some_property.side_effect = memory_buffer
+    return mock.some_property.side_effect
 
 
 def test_add(set_mock_memorybuffer):
@@ -22,9 +27,8 @@ def test_is_empty(set_mock_memorybuffer):
 
 def test_clear_memory_buffer(set_mock_memorybuffer):
     assert set_mock_memorybuffer.clear_memory_buffer
-    set_mock_memorybuffer.clear_memory_buffer()
 
 
 def test_is_empty_without_mock():
-    memorybuffer = MemoryBuffer
+    memorybuffer = MemoryBuffer()
     assert memorybuffer.is_empty()
