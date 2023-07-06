@@ -22,32 +22,36 @@ class Manager:
             Options.not_empty_memory_buffer()
 
     @classmethod
-    def show_main_menu(cls) -> None:
+    def show_main_menu(cls, memory_buffer_obj) -> None:
         """
         Method shows main menu of program
 
         """
-        Manager.display_menu(MemoryBuffer.get_length())
+        Manager.display_menu(memory_buffer_obj.get_length())
         option = input(Messages.CHOOSE_OPTION.value)
         match option:
             case "1":
-                cls.set_str_to_memory_buffer(MemoryBuffer, Statuses.TO_ENCRYPT.value)
+                cls.set_str_to_memory_buffer(
+                    memory_buffer_obj, Statuses.TO_ENCRYPT.value
+                )
             case "2":
-                cls.set_str_to_memory_buffer(MemoryBuffer, Statuses.TO_DECRYPT.value)
+                cls.set_str_to_memory_buffer(
+                    memory_buffer_obj, Statuses.TO_DECRYPT.value
+                )
             case "3":
-                if MemoryBuffer.is_empty():
+                if memory_buffer_obj.is_empty():
                     print("Zamykam program")
                     exit()
                 else:
-                    FileHandler.prepare_save(MemoryBuffer)
-                    MemoryBuffer.clear_memory_buffer()
+                    FileHandler.prepare_save(memory_buffer_obj)
+                    memory_buffer_obj.clear_memory_buffer()
             case "4":
-                if MemoryBuffer.is_empty():
+                if memory_buffer_obj.is_empty():
                     print(Messages.WRONG_ACTION.value)
                 else:
-                    MemoryBuffer.show_memory_buffer()
+                    memory_buffer_obj.show_memory_buffer()
             case "5":
-                if MemoryBuffer.is_empty():
+                if memory_buffer_obj.is_empty():
                     print(Messages.WRONG_ACTION.value)
                 else:
                     print("Zamykam program")
@@ -128,5 +132,6 @@ class Manager:
 
     @classmethod
     def run(cls):
+        memory_buffer_obj = MemoryBuffer()
         while True:
-            Manager.show_main_menu()
+            Manager.show_main_menu(memory_buffer_obj)

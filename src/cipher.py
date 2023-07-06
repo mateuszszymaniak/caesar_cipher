@@ -25,7 +25,7 @@ class Cipher:
         Method convert decryt/encrypt text for all objects in memory_buffer
 
         """
-        for obj in MemoryBuffer.memory_buffer:
+        for obj in memory_buffer.memory_buffer:
             obj.txt = cls.convert_text(obj.txt, obj.rot_type)
             obj.status = Statuses.change_status_before_convert(obj.status)
         return memory_buffer
@@ -36,7 +36,7 @@ class Cipher:
         Method convert only this objects which status is 'to_encrypt'
 
         """
-        for obj in MemoryBuffer.memory_buffer:
+        for obj in memory_buffer.memory_buffer:
             if obj.status == "to_encrypt":
                 obj.txt = cls.convert_text(obj.txt, obj.rot_type)
                 obj.status = Statuses.change_status_before_convert(obj.status)
@@ -50,7 +50,7 @@ class Cipher:
         Method convert only this objects which status is 'to_decrypt'
 
         """
-        for obj in MemoryBuffer.memory_buffer:
+        for obj in memory_buffer.memory_buffer:
             if obj.status == "to_decrypt":
                 obj.txt = cls.convert_text(obj.txt, obj.rot_type)
                 obj.status = Statuses.change_status_before_convert(obj.status)

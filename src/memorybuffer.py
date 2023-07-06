@@ -5,52 +5,46 @@ from src.text import Text
 
 
 class MemoryBuffer:
-    memory_buffer = []
+    def __init__(self):
+        self.memory_buffer = []
 
-    @classmethod
-    def get_length(cls) -> int:
+    def get_length(self) -> int:
         """
         Method returns length of memory_buffer
         """
-        return len(cls.memory_buffer)
+        return len(self.memory_buffer)
 
-    @classmethod
-    def add_to_memory_buffer(cls, text_object: Text) -> None:
+    def add_to_memory_buffer(self, text_object: Text) -> None:
         """
         Method add Text object into memory_buffer
         """
-        cls.memory_buffer.append(text_object)
+        self.memory_buffer.append(text_object)
 
-    @classmethod
-    def insert_to_memory_buffer(cls, text_object: Text, position: int) -> list[Any]:
+    def insert_to_memory_buffer(self, text_object: Text, position: int) -> list[Any]:
         """
         Method insert Text object in position to memory_buffer
         """
-        cls.memory_buffer.insert(position, text_object)
-        return cls.memory_buffer
+        self.memory_buffer.insert(position, text_object)
+        return self.memory_buffer
 
-    @classmethod
-    def memory_buffer_to_dict(cls) -> list[dict[str, Any]]:
+    def memory_buffer_to_dict(self) -> list[dict[str, Any]]:
         """
         Method convert list memory_buffer into dict
         """
-        return [asdict(text) for text in cls.memory_buffer]
+        return [asdict(text) for text in self.memory_buffer]
 
-    @classmethod
-    def show_memory_buffer(cls) -> None:
+    def show_memory_buffer(self) -> None:
         """
         Method display objects from memory_buffer
         """
-        for idx, item in enumerate(cls.memory_buffer, start=1):
+        for idx, item in enumerate(self.memory_buffer, start=1):
             print(f"{idx}. {item}")
 
-    @classmethod
-    def clear_memory_buffer(cls) -> None:
+    def clear_memory_buffer(self) -> None:
         """
         Method clear memory_buffer
         """
-        cls.memory_buffer.clear()
+        self.memory_buffer.clear()
 
-    @classmethod
-    def is_empty(cls) -> bool:
-        return len(cls.memory_buffer) == 0
+    def is_empty(self) -> bool:
+        return len(self.memory_buffer) == 0

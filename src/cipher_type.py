@@ -4,12 +4,14 @@ from src.rots import Rots
 
 
 class CipherType(Enum):
+    ROT13 = "ROT13"
+    ROT47 = "ROT47"
+
     @staticmethod
     def show_all() -> None:
         """
-        Method display all available rot types from rots class
+        Method display all available rot types
 
         """
-        available_ciphers = [method for method in dir(Rots) if "rot" in method]
-        for key, value in enumerate(available_ciphers, start=1):
-            print(f"{key}. {value.upper()}")
+        for key, value in enumerate(CipherType, start=1):
+            print(f"{key}. {value.value}")
