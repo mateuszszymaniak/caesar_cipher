@@ -32,6 +32,6 @@ The Caesar cipher project allows you to encrypt or decrypt the text entered by t
 ## Contact
 Contact to author of project
 <br>
-gmail: mateusz.szymaniak1993@gmail.com
+gmail: mateuszszymaniak@protonmail.com
 <br>
-linkedin: https://www.linkedin.com/in/mateusz-szymaniak/
+linkedin: https://www.linkedin.com/in/mateuszszymaniak/
